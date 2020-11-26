@@ -1,5 +1,5 @@
 import {Layout, Menu, Image} from "antd";
-import {AppstoreOutlined, TableOutlined} from "@ant-design/icons";
+import {AppstoreOutlined, TableOutlined, DownOutlined } from "@ant-design/icons";
 import React from "react";
 import {Link} from "react-router-dom";  
 import './Header.css'
@@ -29,18 +29,22 @@ export default (props) => {
 
 function Profile(props) {
     return (
-        <div className={"profile-container"} style={{display: "flex", float: "right"}}>
-                    <div style={{margin: 15, }}>
-                        <span style={{fontSize: 18, fontFamily: "Raleway" }}>
+        <div style={{display: 'flex', flexDirection: 'col', justifyContent:'center', float: 'right'}}>
+            <div className={"profile-container"} style={{display: "flex", float: "right", flexDirection: 'row', marginTop: 15}}>
+                    <Image src={props.photo} width={45} height={45} style=
+                        {{
+                            float: "right"
+                        }}/>
+                    <div>
+                        <span style={{fontSize: 16, fontFamily: "Raleway", marginRight: 10, marginLeft: 10 }}>
                             {props.name}
                         </span>
                     </div>
-                    <Image src={props.photo} width={50} height={50} style=
-                        {{
-                            margin: 15,
-                            float: "right"
-                        }}/>
+                    <div>
+                        <DownOutlined />
+                    </div>
                 </div>
+        </div>
     );
 }
 
