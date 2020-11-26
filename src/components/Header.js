@@ -31,14 +31,14 @@ function Profile(props) {
     return (
         <div className={"profile-container"} style={{display: "flex", float: "right"}}>
                     <div style={{margin: 15, }}>
-                        <span style={{fontWeight: 700, fontSize: 16}}>
+                        <span style={{fontSize: 18, fontFamily: "Raleway" }}>
                             {props.name}
                         </span>
                     </div>
                     <Image src={props.photo} width={50} height={50} style=
                         {{
                             margin: 15,
-                            float: "right",
+                            float: "right"
                         }}/>
                 </div>
     );
