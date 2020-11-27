@@ -52,3 +52,7 @@ body {
     background-image: url("./figure.png");
     background-size: cover;
 }
+
+.upload-list-inline .ant-upload-list-item {
+    margin-right: 8px;
+  }
