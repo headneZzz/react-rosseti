@@ -1,0 +1,27 @@
+.ant-btn-primary {
+  background-color: "red";
+}.coments-menu .ant-menu-horizontal {
+    border-bottom: 12px solid red !important;
+    color: red !important;
+  }
+.iconslist .ant-image-img 
+{
+    border-radius: 6px;
+}
+/*
+.wrapper {
+  width: 100px;
+  height: 100px;
+  border: 0px solid #515151;
+}
+.exmpl {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.exmpl img {
+  min-width: 100px;
+  min-height: 100px;
+  flex-shrink: 0;
+}*/

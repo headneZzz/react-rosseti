@@ -7,7 +7,7 @@ export default class LoginPage extends React.Component {
     handleSubmit = () => {
         const user = {"name": "user"};
         setUserSession(user);
-        this.props.history.push('/initiatives')
+        this.props.history.push('/initiativeOne')
     };
 
     render() {
