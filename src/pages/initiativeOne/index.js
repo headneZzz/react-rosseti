@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Layout, PageHeader, Spin, Image, Table, Row, Col, Menu, Input } from 'antd';
+import { Button, Layout, PageHeader, Spin, Image, Table, Row, Col, Menu, Input, Modal } from 'antd';
 import Header from "../../components/Header";
 // npm install --save-dev @iconify/react @iconify-icons/ant-design
 import { Icon, InlineIcon } from '@iconify/react';
@@ -10,7 +10,7 @@ import { mdiTelegram } from '@mdi/js';
 import './init.css'
 
 export default (props) => {
-    const data = { rates: 10 }
+    const data = { rates: 21 }
 
     const fetchData = () => {
         return data;
@@ -29,32 +29,65 @@ export default (props) => {
             textProblem={"На сегодня государство недополучает миллиарды налогов из-за того, что работающие на официальной работе или приезжие граждане работают неофициально. Например ремонтируют квартиры, таксуют, перепродают. С другой стороны для ИП есть обязательные налоги, которые в случае небольших подработок просто нереально выплатить. Также, например для такси, есть масса требований, которые нет смысла требовать от людей, подвозящих по пути пассажиров три-четыре раза в неделю. Это и оклейка машины, и квитанции, и медосмотры."}
             textSolve={"На сегодня государство недополучает миллиарды налогов из-за того, что работающие на официальной работе или приезжие граждане работают неофициально. Например ремонтируют квартиры, таксуют, перепродают. С другой стороны для ИП есть обязательные налоги, которые в случае небольших подработок просто нереально выплатить. Также, например для такси, есть масса требований, которые нет смысла требовать от людей, подвозящих по пути пассажиров три-четыре раза в неделю. Это и оклейка машины, и квитанции, и медосмотры. "}
             textEconomic={"На сегодня государство недополучает миллиарды налогов из-за того, что работающие на официальной работе или приезжие граждане работают неофициально. Например ремонтируют квартиры, таксуют, перепродают. С другой стороны для ИП есть обязательные налоги, которые в случае небольших подработок просто нереально выплатить. Также, например для такси, есть масса требований, которые нет смысла требовать от людей, подвозящих по пути пассажиров три-четыре раза в неделю. Это и оклейка машины, и квитанции, и медосмотры."}
-            dataInic={"12.10.2020 19:23"} title={"Распределение налогов"} rate={22}
+            dataInic={"12.10.2020 19:23"} title={"Распределение налогов"} rate={data.rates}
             textCoast={"100.000"} textTime={"10"}
-            changeData={(newData) => (setInitiatData(newData))}
+            changeData = {(newData) => (setInitiatData(newData))}
         />
     )
+}
+
+async function postData() {
+    const response = await fetch("http://84.201.137.231:5000/invite_user", {
+        method: 'POST',
+        body: JSON.stringify({
+            user_name: "KudryashevDaniil",
+            topic: "Распределение налогов"
+        })
+    });
+
 }
 
 function InitiativeOne(props) {
 
     const [isLoading, setLoading] = useState(true);
+    const [visible, setVisible] = useState(false)
 
-    //const [Like] = useState(true);
+    fetch("http://example.url/page.php")
+        .then((response) => response.json())
+        .then((response) => {
+            this.setState({ items: response });
+            this.setState({ isLoaded: true });
+        })
+        .then((error) => {
+            this.setState({ false: true });
+            this.setState({ error });
+        })
+
     const { Content } = Layout;
     return (
-        <Layout className="wrapper">
-            <Header selected={"stocktaking"} />
-            <Layout style={{ color: "#D8E9FF", flex: "none" }}>
+        <div>
+        <Modal
+            title="Телеграмм"
+            visible={visible}
+            onOk={()=>{setVisible(false)}}
+            
+            okText={"Ок"}
+       
+        >
+            <p style={{ fontSize:16, textAlign:'center' }}>Вы были добавленны в телеграмм беседу</p>
+        </Modal>
+        <Layout className="wrapper" style={{ backgroundColor: "white" }}>
+            <Layout style={{ backgroundColor: "white" }} style={{ color: "#D8E9FF", flex: "none", backgroundColor: "white" }}>
                 <div className={"initiative"}>
                     <Row >
-                        <Layout style={{ marginTop: 20, marginLeft: '10vw', marginRight: '1vw', width: '60vw' }}>
+                        <Layout style={{ marginTop: 20, marginLeft: '5vw', marginRight: '1vw', width: '60vw', backgroundColor: "white" }}>
 
                             <Content className="site-layout-background" style={{
                                 padding: '0 15px',
                                 overflow: 'auto',
                                 borderRadius: 15
-                                , width: '65vw'
+                                , width: '65vw',
+                                boxShadow: '0px 3px 8px 0px #ECECEC',
                             }}>
                                 <Row>
                                     <Col>
@@ -63,9 +96,9 @@ function InitiativeOne(props) {
                                                 <span style={{ fontWeight: 400, fontSize: 30, color: "black" }}>
                                                     {props.title}
                                                 </span>
-                                                <div style={{ display: "flex", flexDirection: "row", marginTop: 8  }}>
+                                                <div style={{ display: "flex", flexDirection: "row", marginTop: 8 }}>
                                                     <Icon icon={eyeFilled} style={{ color: "lightGray", marginLeft: 15, marginTop: 10 }} height={18} />
-                                                    <span style={{ fontWeight: 300, fontSize: 22, color: "lightGray", marginLeft: 5}}>
+                                                    <span style={{ fontWeight: 300, fontSize: 22, color: "lightGray", marginLeft: 5 }}>
                                                         {"2.4k"}
                                                     </span>
                                                 </div>
@@ -208,8 +241,8 @@ function InitiativeOne(props) {
                                 borderRadius: 15
                                 , width: '20vw', color: "#00000000", background: "#00000000"
                             }}>
-                                <Button type="primary" shape="round" style={{ marginLeft: "1vw" }}
-                                    size={22}>
+                                <Button type="primary" shape="round" style={{ marginLeft: "1vw" }} onClick={()=>{setVisible(true); postData();}}  
+                                    size={22}>    
                                     <div style={{ display: "flex", flexDirection: "row" }}>
                                         <span style={{ fontWeight: 500, fontSize: 14, color: "white" }}> {"Обсуждение в телеграмм"} </span>
                                         <div style={{ width: '10px', }} />
@@ -225,8 +258,8 @@ function InitiativeOne(props) {
                             </Content>
                         </Layout>
                     </Row>
-                    <Row >
-                        <Layout style={{ marginTop: 20, marginLeft: '10vw', marginRight: '2vw', width: '60vw' }}>
+                    <Row>
+                        <Layout style={{ marginTop: 20, marginLeft: '5vw', marginRight: '2vw', width: '60vw', backgroundColor: "white" }}>
 
                             <Content className="site-layout-background" style={{
                                 padding: '0 15px',
@@ -275,8 +308,9 @@ function InitiativeOne(props) {
 
 
 
-            <Layout.Footer style={{ textAlign: 'center' }}>Россети</Layout.Footer>
+            <Layout.Footer style={{ textAlign: 'center', backgroundColor: "white" }}>Россети</Layout.Footer>
         </Layout>
+        </div>
     )
 }
 

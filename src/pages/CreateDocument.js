@@ -101,10 +101,10 @@ export default (props) => {
             onOk={()=>{setVisible(false); history.push({pathname:  "/main"}) }}
             onCancel={()=>{setVisible(false)}}
             okText={"Подтверждаю"}
-            cancelText={"Не подтверждаю"}
+            cancelText={"Еще нет"}
             cancelButtonProps={{danger: true}}
         >
-            <p>Подтвердите, , что подаваемое рацпредложение соответствует критериям рационализации (новизна, полезность). </p>
+            <p>Подтвердите, что подаваемое рацпредложение соответствует критериям рационализации (новизна, полезность).</p>
         </Modal>
         <Modal
             title="Поиск участника"
