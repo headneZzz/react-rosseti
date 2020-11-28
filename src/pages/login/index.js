@@ -23,6 +23,7 @@ export default class LoginPage extends React.Component {
                             style={{ marginTop: "15px" }} placeholder="Логин" size={'large'}
                         />
                         <Input
+                            type="password"
                             style={{ marginTop: "15px" }} placeholder="Пароль" size={'large'}
                         />
                         <Button style={{ marginTop: "15px" }} type="primary" htmlType="submit" className="login-form-button" onClick={() => {
