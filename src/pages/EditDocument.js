@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {Layout, Row, Col, Image, Button, Input, Upload, Modal, Table} from 'antd';
+import {Layout, Row, Col, Image, Button, Input, Upload, Modal, Table, Select} from 'antd';
 import { useHistory } from "react-router";
 import {AppstoreOutlined, TableOutlined, DownOutlined, CheckOutlined, CloseOutlined, PlusOutlined, FileAddOutlined, UploadOutlined, AudioOutlined} from "@ant-design/icons";
 import Title from "../components/Title"
@@ -245,7 +245,20 @@ export default (props) => {
                                 {
                                     showSimilar
                                 }
-                                
+                                <div style={{marginBottom: 10, marginTop: -5}} >
+                                    <div style={tableTextStyle}>
+                                        Категория
+                                    </div>
+                                    <div> 
+                                        <Select size={"middle"} defaultValue="Тех. процесс" style={{ width: 150 }} disabled>
+                                            <Select value="Тех. процесс">Тех. процесс</Select>
+                                            <Select value="Сервисы">Сервисы</Select>
+                                            <Select value="Digital">Digital</Select>
+                                            <Select value="Безопасность">Безопасность</Select>
+                                            <Select value="Другое">Другое</Select>
+                                        </Select>    
+                                    </div>
+                                </div>
                                 <div>
                                     <div style={tableTextStyle}>
                                         Описание:
