@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import {Layout, Row, Col, Image, Button, Input} from 'antd';
-import {AppstoreOutlined, TableOutlined, DownOutlined, CheckOutlined, CloseOutlined  } from "@ant-design/icons";
+import {Link} from "react-router-dom";  
+import {Layout, Row, Col, Image, Button, Input, Tooltip} from 'antd';
+import {AppstoreOutlined, TableOutlined, DownOutlined, CheckOutlined, CloseOutlined, InfoCircleOutlined, FormOutlined} from "@ant-design/icons";
 import Title from "../components/Title"
 import Form from "../components/Form"
 export default (props) => {
@@ -34,17 +35,41 @@ export default (props) => {
                             </Col>
                             <Col span={13}>
                                 <div style={{display: 'flex', flexDirection: 'column'}}>
-                                    <Row style={{fontFamily:'Raleway', fontSize: 20, marginBottom : 20, fontWeight: 600}}>
-                                        Инициативы
+                                    
+                                    <Row style={{fontFamily:'Raleway', fontSize: 20, marginBottom : 20, marginTop: 10, marginBottom: 10, fontWeight: 600, display: 'flex', flexDirection: 'row'}}>
+                                        <div style={{alignSelf: 'center', margin: 5, marginTop: 2}}>
+                                            Инициативы
+                                        </div>
+                                        <div style={{alignSelf: 'center'}}>
+                                            <Tooltip placement="bottomLeft"  title={ 
+                                                <div>
+                                                    <p>
+                                                        Все предложения проходят тщательный отбор и несколько стадий модерации.
+                                                    </p>
+                                                    <p>
+                                                        <b>Первый Этап</b>: после подачи рацианализаторского предложения в краткой форме, оно попадает на первичную оценку экспертом, а также становится доступным для народного обсуждения.
+                                                    </p>
+                                                    <p>
+                                                        <b>Второй Этап</b>: после прохождения первого этапа модерации, вам будет предложено формально описать детали реализации рацианализаторского предложения, после чего оно будет отправлено на второй этап модерации.
+                                                    </p>
+                                                    <p>
+                                                        <b>Третий Этап</b>: Поздравляем! Ваше предложение взято в реализацию. 
+                                                    </p>
+                                                </div>
+                                            }>
+                                                <InfoCircleOutlined style={{color: '#005B9C'}} />
+                                            </Tooltip>
+                                        </div>
                                     </Row>
+                                    
                                     <Row style={{display: 'block'}}>
                                     <Row style={{paddingBottom: 20}}>
-                                        <Col span={12} > <Card /> </Col>
-                                        <Col span={12} ><Card /> </Col>
+                                        <Col span={12} > <Card type={"stage1"} title={"Улучшение трубопровода"} desc={"Предложение по улучшению трубопроводаПредложение по улучшению трубопроводаПредложение по улучшению трубопровода"} /> </Col>
+                                        <Col span={12} ><Card type={"stage2"} title={"Улучшение электросетей"} desc={"Предложение по улучшению электросетейПредложение по улучшению электросетейПредложение по улучшению электросетей"} /> </Col>
                                     </Row>
                                     <Row style={{paddingBottom: 20}}>
-                                        <Col span={12} ><Card /> </Col>
-                                        <Col span={12} ><Card /> </Col>
+                                        <Col span={12} > <Card type={"stage3"} title={"Улучшение трубопровода"} desc={"Предложение по улучшению трубопроводаПредложение по улучшению трубопроводаПредложение по улучшению трубопровода"} /> </Col>
+                                        <Col span={12} ><Card type={"decline"} title={"Улучшение электросетей"} desc={"Предложение по улучшению электросетейПредложение по улучшению электросетейПредложение по улучшению электросетей"} /> </Col>
                                     </Row>
                                     </Row>
                                 </div>
@@ -106,6 +131,9 @@ function EditProfile(props)
                                         <Input placeholder={props.profileData.email} size={'large'}/>
                                     </div>
                                     <div style={{marginBottom: 10}}>
+                                        <Input placeholder={"+7999000000"} size={'large'}/>
+                                    </div>
+                                    <div style={{marginBottom: 10}}>
                                         <Input placeholder="Новый пароль" size={'large'}/>
                                     </div>
                                     <div style={{marginBottom: 10, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
@@ -123,14 +151,104 @@ function EditProfile(props)
 
 function Card(props)
 {
-    return(
-        <div style={{height: 'auto', width : '95%', display: 'flex', padding: 12, flexDirection : 'column', borderWidth: 1, borderRadius:3, borderStyle: 'solid', borderColor: '#DCDCDC'}}>
-            <div style={{fontFamily:'Roboto', color:'#005B9C', fontSize: 18}}>
-                Как какать?
+    var color = ()=>
+    {
+        if(props.type == "stage1")
+        {
+            return ("#008A60")
+        }
+        if(props.type == "stage2")
+        {
+            return ("#f2994a")
+        }
+        if(props.type == "stage3")
+        {
+            return ("#005B9C")
+        }
+        if(props.type == "decline")
+        {
+            return ("#eb5757")
+        }
+    }
+
+    var type = ()=>
+    {
+        if(props.type == "stage1")
+        {
+            return (<div style={{width: '100%', display: 'flex', flexDirection: 'column'}}>
+                <div>
+                    Этап 1.
+                </div>
+                <div>
+                    Ожидает модерации.
+                </div>
+                
+            </div>)
+        }
+        if(props.type == "stage2")
+        {
+            return (
+                <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
+                    <div style={{width: '100%', display: 'flex', flexDirection: 'column'}}>
+                        <div>
+                            Этап 2.
+                        </div>
+                        <div>
+                            Требуется формальное описание.
+                        </div>
+                    </div>
+                    <div style={{display: "flex", flexDirection: 'column', justifySelf: 'center', alignSelf: 'center', fontSize: 24}}>
+                            <FormOutlined style={{justifySelf: 'center'}}/>
+                    </div>
+                
+                </div>
+            )
+        }
+        if(props.type == "stage3")
+        {
+            return (<div style={{width: '100%', display: 'flex', flexDirection: 'column'}}>
+            <div>
+                Этап 3.
             </div>
             <div>
-                На сегодня государство недополучает миллиарды налогов из-за того, что работающие на официальной работе или приезжие граждане работают 
+                Принято в реализацию.
             </div>
-        </div>
+            
+        </div>)
+        }
+        if(props.type == "decline")
+        {
+            return (<div style={{width: '100%', display: 'flex', flexDirection: 'column'}}>
+            <div>
+                Отклонено.
+            </div>
+            
+        </div>)
+        }
+    }
+
+    
+    
+
+    return(
+        <Link to={props.type == "stage2" ? "/editdocument" : '/initiativeOne'}>
+            <div style={{height: 'auto', width : '95%', display: 'flex', padding: 12, flexDirection : 'column', borderWidth: 1, borderRadius:3, borderStyle: 'solid', borderColor: color()}}>
+                <div style={{fontFamily:'Roboto', color:color(), fontSize: 18, display: "flex", flexDirection: 'column'}}>
+                    <div>
+                        {props.title}
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'row', fontSize: 14}}>   
+                        <div style={{width: '100%'}}>   
+                            {type()}
+                        </div>
+                        <div>   
+                        </div>
+                    </div>
+                </div>
+                <div style={{color : 'black'}}>
+                    {props.desc} 
+                </div>
+            </div>
+            </Link>
     );
 }
