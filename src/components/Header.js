@@ -22,9 +22,9 @@ export default (props) => {
                         margin: 15,
                         float: "left"
                     }}>
-                    <Menu.Item key="1" className="modified-item">Проблемы</Menu.Item>
-                    <Menu.Item key="2" className="modified-item">Отчеты</Menu.Item>
-                    <Menu.Item key="3" className="modified-item">Проекты</Menu.Item>
+                    <Menu.Item key="2" className="modified-item">Инициативы</Menu.Item>
+                    <Menu.Item key="1" className="modified-item">Отчеты</Menu.Item>
+                    <Menu.Item key="3" className="modified-item">Статистика</Menu.Item>
                 </Menu>
                 </div>
                 <div style={{width:'20%'}}>
