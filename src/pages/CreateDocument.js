@@ -45,7 +45,7 @@ export default (props) => {
     }
 
     var data = [{title: "Улучшение трубопровода", descr: "Улучшение трубопроводаУлучшение трубопроводаУлучшение трубопроводаУлучшение трубопровода"}, {title: "Улучшение прокладки проводов", descr: "Улучшение прокладки проводовУлучшение прокладки проводовУлучшение прокладки проводов"}]
-    var usersDb = [{name: "Сергей", lastName: "Воронежский", photo: "https://avatars.mds.yandex.net/get-zen_doc/163385/pub_5bb70bfc049c1c00aa163781_5bb70c53ad289e00ac6bf422/scale_1200" }, {name: "Владимир", lastName: "Кураткин", photo: "https://www.mosoblduma.ru/upload/site1/djdj.jpg" }]
+    var usersDb = [{name: "Сергей", lastName: "Воронежский", photo: "https://img.freepik.com/free-photo/portrait-of-white-man-isolated_53876-40306.jpg?size=626&ext=jpg" }, {name: "Владимир", lastName: "Кураткин", photo: "https://www.mosoblduma.ru/upload/site1/djdj.jpg" }]
 
     var { transcript, interimTranscript, resetTranscript } = useSpeechRecognition()
 
