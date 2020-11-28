@@ -48,17 +48,17 @@ export default (props) => {
         {
             user_name: "Михаиль Круть",
             message: "Довольно интересное решение но я считаю что его необходимо дорабьотать следующим образом.",
-            data: "28.11.2020 18:32"
+            data: "28.11.2020 18:32:29"
         },
         {
             user_name: "Иван Иванов",
             message: "Меня не устраивают следующие моменты в этой инициативе",
-            data: "28.11.2020 18:31"
+            data: "27.11.2020 18:31:12"
         },
         {
             user_name: "Денис Древесный",
             message: "Работающие на официальной работе или приезжие граждане работают неофициально",
-            data: "28.11.2020 18:25"
+            data: "27.11.2020 18:25:53"
         },
     ]);
 
@@ -73,7 +73,7 @@ export default (props) => {
             changeData={(newData) => (setInitiatData(newData))}
             coment={fromTelegram}
 
-            sendComment={(newData) => (setInerCom(inerCom.add(newData)))}
+            sendComment={(newData) => (setInerCom([...inerCom.reverse(),newData].reverse()))}
             inerComment={inerCom}
         />
     )
@@ -363,7 +363,7 @@ function InitiativeOne(props) {
                                             icon={<Icon icon={caretDownFilled} style={{ color: "red", }}
                                                 height={22} />} size={25}
                                             onClick={() => {
-                                                props.changeData({ rates: props.rates - 1 })
+                                                props.changeData(-1)
                                             }}
                                         ></Button>
                                         <span style={{
@@ -375,7 +375,7 @@ function InitiativeOne(props) {
                                             icon={<Icon icon={caretUpFilled} style={{ color: "green" }} height={22} />}
                                             size={25}
                                             onClick={() => {
-                                                props.changeData({ rates: props.rates + 1 })
+                                                props.changeData(1)
                                             }}
                                         ></Button>
                                     </div>
@@ -599,7 +599,8 @@ function ComentOne(props) {
 
 function MakeComentOne(props) {
     return (<Input
-        onPressEnter = {(newData) => (props.sendComment(newData))}
-         style={{ marginTop: "15px" }} placeholder="Отзыв..." size={'large'} 
+        onPressEnter = {(e) => {props.sendComment({message: e.target.value, user_name: "Дарья Сергеевна Золоторева", data: (new Date()).toLocaleString() });
+                         e.target.value = "";}}
+        style={{ marginTop: "15px" }} placeholder="Отзыв..." size={'large'} 
     />);
 }
