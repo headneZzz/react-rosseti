@@ -9,7 +9,7 @@ const columns = [
       title: 'Название',
       dataIndex: 'name',
       key: 'name',
-      render: text => <a>{text}</a>,
+      render: text => <Link to="/initiativeOne" onClick={console.log("idi nahui")}>{text}</Link>,
     },
     {
         title: 'Категория',
@@ -105,9 +105,11 @@ export default (props) => {
                               
                             </Col>
                             <Col span={12}>
+                            <Link to="/createdocument">
                               <Button type="primary" shape="round" icon={<PlusOutlined />} size={"middle"} color={"#008A60"} style={{float: 'right'}}>
                                 Добавить инициативу
                               </Button>
+                            </Link>
                             </Col>
                         </Row>
                         <Table columns={columns} dataSource={data} />

@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {Layout, Row, Col, Image, Button, Input, Upload, Modal} from 'antd';
+import { useHistory } from "react-router";
 import {AppstoreOutlined, TableOutlined, DownOutlined, CheckOutlined, CloseOutlined, PlusOutlined, FileAddOutlined, UploadOutlined, AudioOutlined} from "@ant-design/icons";
 import Title from "../components/Title"
 import Form from "../components/Form"
@@ -91,13 +92,13 @@ export default (props) => {
                 </div>
         )
     }
-
+    const history = useHistory();
     return (
         <div>
         <Modal
             title="Подтвердите оригинальность идеи"
             visible={visible}
-            onOk={()=>{setVisible(false)}}
+            onOk={()=>{setVisible(false); history.push({pathname:  "/main"}) }}
             onCancel={()=>{setVisible(false)}}
             okText={"Подтверждаю"}
             cancelText={"Еще нет"}
@@ -140,9 +141,9 @@ export default (props) => {
                 </div>
             </div>
         </Modal>
-            <Layout style={{backgroundColor: "white"}}>
-                <Layout style={{marginLeft: 50, marginRight: 50, marginTop: 25, backgroundColor: 'white'}}>
-                    <Layout className="site-layout-background" style={{
+            <div style={{backgroundColor: "white"}}>
+                <div style={{marginLeft: 50, marginRight: 50, marginTop: 25, backgroundColor: 'white'}}>
+                    <div className="site-layout-background" style={{
                         padding: '0 24px',
                         overflow: 'auto',
                         backgroundColor: 'white'
@@ -208,9 +209,9 @@ export default (props) => {
                             </Col>
                             <Col span={5} />
                         </Row>
-                    </Layout>
-                </Layout>
-            </Layout>
+                    </div>
+                </div>
+            </div>
             </div>
     )
 }

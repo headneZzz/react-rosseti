@@ -7,19 +7,18 @@ export default (props) => {
     return (
         <div>
         <Title title={"Инициативы"} description={"Здесь список всех рационализаторских инициатив"}/>
-            <Layout style={{backgroundColor: "white"}}>
-                <Layout style={{marginLeft: 50, marginRight: 50, marginTop: 25, backgroundColor: 'white'}}>
-                    <Layout className="site-layout-background" style={{
+            <div style={{backgroundColor: "white"}}>
+                <div style={{marginLeft: 50, marginRight: 50, marginTop: 25, backgroundColor: 'white'}}>
+                    <div className="site-layout-background" style={{
                         padding: '0 24px',
                         overflow: 'auto',
                         backgroundColor: 'white'
                     }}>
                         
-                        <Header selected={"stocktaking"}/>
                         {props.children}
-                    </Layout>
-                </Layout>
-            </Layout>
+                    </div>
+                </div>
+            </div>
             </div>
     )
 }

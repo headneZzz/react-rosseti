@@ -13,10 +13,6 @@ body {
     min-height: 100%;
 }
 
-.wrapper {
-    height: 100vh
-}
-
 .site-layout-background {
     background: #fff;
 }
