@@ -6,7 +6,7 @@ import Title from "../components/Title"
 import Form from "../components/Form"
 export default (props) => {
 
-    const data = {name: "Дора Дура", email: "sosi@pisos.ru", password: 'secret'}
+    const data = {name: "Дарья Золоторева", email: "darya@rosseti.ru", password: 'secret'}
     
     const fetchData = () => {
         return data;
@@ -64,12 +64,19 @@ export default (props) => {
                                     
                                     <Row style={{display: 'block'}}>
                                     <Row style={{paddingBottom: 20}}>
-                                        <Col span={12} > <Card type={"stage1"} title={"Улучшение трубопровода"} desc={"Предложение по улучшению трубопроводаПредложение по улучшению трубопроводаПредложение по улучшению трубопровода"} /> </Col>
-                                        <Col span={12} ><Card type={"stage2"} title={"Улучшение электросетей"} desc={"Предложение по улучшению электросетейПредложение по улучшению электросетейПредложение по улучшению электросетей"} /> </Col>
+                                        <Col span={12} > <Card type={"stage1"} title={"Тестовый топик"} desc={"С другой стороны рамки и место обучения кадров способствует подготовки и реализации модели развития."} /> </Col>
+                                        <Col span={12} ><Card type={"stage2"} title={"Тестовая статья"} desc={"Идейные соображения высшего порядка, а также рамки и место обучения кадров обеспечивает широкому кругу (специалистов)."} /> </Col>
                                     </Row>
                                     <Row style={{paddingBottom: 20}}>
-                                        <Col span={12} > <Card type={"stage3"} title={"Улучшение трубопровода"} desc={"Предложение по улучшению трубопроводаПредложение по улучшению трубопроводаПредложение по улучшению трубопровода"} /> </Col>
-                                        <Col span={12} ><Card type={"decline"} title={"Улучшение электросетей"} desc={"Предложение по улучшению электросетейПредложение по улучшению электросетейПредложение по улучшению электросетей"} /> </Col>
+                                        <Col span={12} > <Card type={"stage3"} title={"Распределение налогов"} desc={"Идейные соображения высшего порядка, а также дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений."} /> </Col>
+                                        <Col span={12} ><Card type={"stage1"} title={"Россети тестовая статья"} desc={"Равным образом консультация с широким активом требуют определения и уточнения модели развития. "} /> </Col>
+                                    </Row>
+                                    <Row style={{paddingBottom: 20}}>
+                                        <Col span={12} > <Card type={"stage3"} title={"Росссети"} desc={"Таким образом реализация намеченных плановых заданий позволяет оценить значение новых предложений."} /> </Col>
+                                        <Col span={12} ><Card type={"stage3"} title={"Расширение транспортной сети"} desc={"Не следует, однако забывать, что дальнейшее развитие различных форм деятельности способствует подготовки и реализации форм развития."} /> </Col>
+                                    </Row>
+                                    <Row style={{paddingBottom: 20}}>
+                                        <Col span={12} ><Card type={"decline"} title={"Тестовая статья"} desc={"Равным образом консультация с широким активом требуют определения и уточнения модели развития."} /> </Col>
                                     </Row>
                                     </Row>
                                 </div>
@@ -100,13 +107,13 @@ function Profile(props)
     return(
         <div className={"profile-container"} style={{flexDirection: 'row', justifyContent : 'center', display: 'flex', alignItems : 'center'}}>
                                     <div style={{flexDirection : 'column', display: 'flex', alignItems: 'center'}}>
-                                    <Image src={"https://images.genius.com/3a3d16332164a48f9e46f160cb8cd6fa.300x300x1.jpg"} width={175} height={175} style=
+                                    <Image src={"https://www.modnapricha.info/wp-content/uploads/2019/12/top-strizhek-dlya-kvadratnoj-formy-lica3.jpg"} width={175} height={175} style=
                                     {{
                                         marginBottom: 15,
                                         borderRadius: 50
                                     }}/>
                                     <div style={{fontFamily: 'Raleway', fontSize: 24, fontWeight: 600, marginBottom: 10}}>
-                                        Дора Дура
+                                        Дарья Золоторева
                                     </div>
                                         <Button size={'large'} onClick={()=>props.onClick()}>Изменить профиль</Button>
                                     </div>
@@ -119,7 +126,7 @@ function EditProfile(props)
     return(
         <div className={"profile-container"} style={{flexDirection: 'row', justifyContent : 'center', display: 'flex', alignItems : 'center'}}>
                                     <div style={{flexDirection : 'column', display: 'flex', alignItems: 'center'}}>
-                                    <img src={"https://images.genius.com/3a3d16332164a48f9e46f160cb8cd6fa.300x300x1.jpg"} width={175} height={175} style=
+                                    <img src={"https://www.modnapricha.info/wp-content/uploads/2019/12/top-strizhek-dlya-kvadratnoj-formy-lica3.jpg"} width={175} height={175} style=
                                     {{
                                         marginBottom: 15,
                                         borderRadius: 100
@@ -137,7 +144,7 @@ function EditProfile(props)
                                         <Input placeholder="Новый пароль" size={'large'}/>
                                     </div>
                                     <div style={{marginBottom: 10, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-                                        <Button type="primary" size={"large"} style={{width:'45%', borderRadius: 3}} onClick={()=>{props.changeData({name: "Дора Дура2", email: "sosi@pisos.ru", password: 'secret'})}}>
+                                        <Button type="primary" size={"large"} style={{width:'45%', borderRadius: 3}} onClick={()=>{props.changeData({name: "Дора Дура2", email: "zolotareva@rosseti.ru", password: 'secret'})}}>
                                             <CheckOutlined />
                                         </Button>
                                         <Button type="primary" size={"large"} style={{width:'45%', borderRadius: 3}} onClick={()=>props.onClick()} danger>

@@ -28,7 +28,7 @@ export default (props) => {
                 </Menu>
                 </div>
                 <div style={{width:'20%'}}>
-                    <Profile name={"Дора Дура"} photo={"https://images.genius.com/3a3d16332164a48f9e46f160cb8cd6fa.300x300x1.jpg"}/>
+                    <Profile name={"Дарья Золоторева"} photo={"https://www.modnapricha.info/wp-content/uploads/2019/12/top-strizhek-dlya-kvadratnoj-formy-lica3.jpg"}/>
                 </div>
                 
         </Header>

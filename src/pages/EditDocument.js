@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {Layout, Row, Col, Image, Button, Input, Upload, Modal} from 'antd';
+import {Layout, Row, Col, Image, Button, Input, Upload, Modal, Table} from 'antd';
 import { useHistory } from "react-router";
 import {AppstoreOutlined, TableOutlined, DownOutlined, CheckOutlined, CloseOutlined, PlusOutlined, FileAddOutlined, UploadOutlined, AudioOutlined} from "@ant-design/icons";
 import Title from "../components/Title"
@@ -9,17 +9,19 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 const { TextArea } = Input;
 
+
+
 const fileList = [
     {
       uid: '-1',
-      name: 'xxx.png',
+      name: 'План.png',
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
       thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
     {
         uid: '-1',
-        name: 'xxx.png',
+        name: 'Проект.docx',
         status: 'done',
         url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
         thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
@@ -41,8 +43,52 @@ const fileList = [
       marginBottom: 20, 
       borderRadius: 5
     }
+      
+      const columns = [
+        {
+          title: 'Статья затрат',
+          dataIndex: 'name',
+          key: 'name',
+          render: text => <Input value={text} />
+        },
+        {
+          title: 'Сумма рублей (с НДС)',
+          dataIndex: 'summ',
+          key: 'summ',
+          render: text => <Input value={text} />
+        },
+      ];
 
-    
+      const columns2 = [
+        {
+          title: 'Этап',
+          dataIndex: 'name',
+          key: 'name',
+          render: text => <Input value={text} />
+        },
+        {
+          title: 'Срок, дней',
+          dataIndex: 'time',
+          key: 'time',
+          render: text => <Input value={text} />
+        },
+      ];
+
+      const columns3 = [
+        {
+          title: 'Автор',
+          dataIndex: 'name',
+          key: 'name',
+          render: text => <Input value={text} />
+        },
+        {
+          title: 'Вознаграждение (в %)',
+          dataIndex: 'fee',
+          key: 'fee',
+          render: text => <Input value={text} />
+        },
+      ];
+
 export default (props) => {
 
     const useHasChanged= (val) => {
@@ -69,12 +115,57 @@ export default (props) => {
     const [visible, setVisible] = useState(false)
     const [title, setTitle] = useState('')
     const [showSimilarities, setShowSimilarities] = useState(false)
-    const [authorsPhotos, setAuthorsPhotos] = useState(['https://images.genius.com/3a3d16332164a48f9e46f160cb8cd6fa.300x300x1.jpg'])
+    const [authorsPhotos, setAuthorsPhotos] = useState(['https://www.modnapricha.info/wp-content/uploads/2019/12/top-strizhek-dlya-kvadratnoj-formy-lica3.jpg', 'https://www.mosoblduma.ru/upload/site1/djdj.jpg'])
     const [addUserModal, setAddUserModal] = useState(false)
     const [userSearchField, setUserSearchField] = useState('')
     const [descrData, setDescrData] = useState('')
     const [voiceOn, setVoiceOn] = useState(false)
     const voiceInput = useHasChanged(transcript)
+
+    const [dataSource1, setDataSource1] = useState([
+        {
+          key: '1',
+          name: 'Закупка оборудования',
+          summ: '1000000',
+        },
+        {
+          key: '2',
+          name: 'Подготовка документации',
+          summ: '50000',
+        },
+      ])
+
+      const [dataSource2, setDataSource2] = useState([
+        {
+          key: '1',
+          name: 'Подготовка документов',
+          time: '10',
+        },
+        {
+          key: '2',
+          name: 'Реализация',
+          time: '50',
+        },
+      ])
+
+    useEffect(() => {
+        if (voiceInput ) {
+            setDescrData(transcript)
+        }
+    });
+
+    const [dataSource3, setDataSource3] = useState([
+        {
+          key: '1',
+          name: 'Дарья Сергеевна Золоторева',
+          fee: '10',
+        },
+        {
+          key: '2',
+          name: 'Владимир Владимирович Кураткин',
+          fee: '5',
+        },
+      ])
 
     useEffect(() => {
         if (voiceInput ) {
@@ -98,7 +189,7 @@ export default (props) => {
         <Modal
             title="Подтвердите оригинальность идеи"
             visible={visible}
-            onOk={()=>{setVisible(false); history.push({pathname:  "/main"}) }}
+            onOk={()=>{setVisible(false); history.push({pathname:  "/profile"}) }}
             onCancel={()=>{setVisible(false)}}
             okText={"Подтверждаю"}
             cancelText={"Еще нет"}
@@ -169,37 +260,76 @@ export default (props) => {
                                         Решение
                                     </div>
                                     <div>
-                                        <TextArea suffix={<AudioOutlined />}  rows={10} value={"Предложение по улучшению трубопроводаПредложение по улучшению трубопроводаПредложение по улучшению трубопровода"} style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea disabled={true} suffix={<AudioOutlined />}  rows={10} value={"Сокращение издержек обращения за счет уменьшения транспортных расходов вследствие изменения условий завоза товаров, расширения их закупки у местных поставщиков на льготных условиях, развития централизованной доставки и кольцевого завоза товаров, совершенствования товародвижения; уменьшения расходов на оплату труда путем сокращения до оптимальных размеров численности работающих и улучшения использования рабочего времени; устранения перерасходов по сравнению с планом но остальным статьям издержек обращения"} style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
 
                                 <div>
                                     <div style={tableTextStyle}>
-                                        Решение
+                                        Описание действительного положения с указанием существующих недостатков:
                                     </div>
                                     <div>
-                                        <TextArea  suffix={<AudioOutlined />}  rows={6} placeholder="Опешите решение..." style={tableInputStyle} value={descrData} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea  suffix={<AudioOutlined />}  rows={6} value="Несовершенная транспортная система" style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
 
                                 <div>
                                     <div style={tableTextStyle}>
-                                        Решение
+                                        Описание предлагаемого решения:
                                     </div>
                                     <div>
-                                        <TextArea suffix={<AudioOutlined />}  rows={6} placeholder="Опешите решение..." style={tableInputStyle} value={descrData} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea suffix={<AudioOutlined />}  rows={6} value="Сокращение издержек обращения за счет уменьшения транспортных расходов вследствие изменения условий завоза товаров, расширения их закупки у местных поставщиков на льготных условиях, развития централизованной доставки и кольцевого завоза товаров, совершенствования товародвижения; уменьшения расходов на оплату труда путем сокращения до оптимальных размеров численности работающих и улучшения использования рабочего времени; устранения перерасходов по сравнению с планом но остальным статьям издержек обращения" style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
 
                                 <div>
                                     <div style={tableTextStyle}>
-                                        Решение
+                                        Ожидаемый положительный эффект от использования 
                                     </div>
                                     <div>
-                                        <TextArea suffix={<AudioOutlined />}  rows={6} placeholder="Опешите решение..." style={tableInputStyle} value={descrData} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea suffix={<AudioOutlined />}  rows={6} value="Улучшение финансового состояния предприятий торговли за счет сокращения дефицита собственного оборотного капитала." style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
+                                <div>
+                                    <div
+                                    onClick={()=>setDataSource1([...dataSource1, {
+                                        key: (dataSource1.length + 1).toString(),
+                                        name: "Статья расходов - " + (dataSource1.length + 1).toString(),
+                                        summ: '0',
+                                      }])}
+                                    type="primary"
+                                    style={{
+                                        marginBottom: 10,
+                                        color: '#1890ff',
+                                        float: 'right'
+                                    }}
+                                    >
+                                        Добавить статью затрат...
+                                    </div>
+                                    <Table pagination={false} dataSource={dataSource1} columns={columns} />
+                                </div>
 
+                                <div style={{paddingTop: 20, paddingBottom: 20}}>
+                                    <div
+                                    onClick={()=>setDataSource2([...dataSource2, {
+                                        key: (dataSource2.length + 1).toString(),
+                                        name: "Этап - " + (dataSource2.length + 1).toString(),
+                                        time: '0',
+                                      }])}
+                                    type="primary"
+                                    style={{
+                                        marginBottom: 10,
+                                        color: '#1890ff',
+                                        float: 'right'
+                                    }}
+                                    >
+                                        Добавить этап...
+                                    </div>
+                                    <Table pagination={false} dataSource={dataSource2} columns={columns2} />
+                                </div>
+                                <div style={{paddingTop: 20, paddingBottom: 20}}>
+                                    <Table pagination={false} dataSource={dataSource3} columns={columns3} />
+                                </div>
                                 <div style={{paddingBottom : 15}}>
                                     <div style={tableTextStyle}>
                                         Файлы

@@ -12,39 +12,9 @@ const columns = [
       render: text => <Link to="/initiativeOne" onClick={console.log("idi nahui")}>{text}</Link>,
     },
     {
-        title: 'Категория',
-        key: 'category',
-        dataIndex: 'category',
-        render: category => (
-          <>
-            {category.map(tag => {
-              let color = tag.length > 5 ? 'geekblue' : 'green';
-              if (tag === 'loser') {
-                color = 'volcano';
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        ),
-      },
-    {
-      title: 'Статус',
-      dataIndex: 'status',
-      key: 'status',
-    },
-    {
         title: 'Автор',
         dataIndex: 'author',
         key: 'author',
-      },
-      {
-        title: 'Ответы',
-        dataIndex: 'replies',
-        key: 'replies',
       },
       {
         title: 'Рейтинг',
@@ -52,33 +22,87 @@ const columns = [
         key: 'raiting',
       },
       {
-        title: 'Сообщения',
+        title: 'Сообщений',
         dataIndex: 'messages',
         key: 'messages',
-      }
+      },
+      {
+          title: 'Категория',
+          key: 'category',
+          dataIndex: 'category',
+          render: category => (
+            <>
+              {category.map(tag => {
+                let color = tag.length > 5 ? 'geekblue' : 'green';
+                if (tag.toUpperCase() === 'ТЕХ. ПРОЦЕСС') {
+                  color = 'geekblue';
+                }
+                if (tag.toUpperCase() === 'ДРУГОЕ') {
+                  color = 'green';
+                }
+                if (tag.toUpperCase() === 'DIGITAL') {
+                  color = 'volcano';
+                }
+                return (
+                  <Tag color={color} key={tag}>
+                    {tag.toUpperCase()}
+                  </Tag>
+                );
+              })}
+            </>
+          ),
+        }
   ];
   
   const data = [
     {
       key: '1',
-      name: 'Как какать',
-      status: 32,
-      author: 'New York No. 1 Lake Park',
-      replies : "23",
-      raiting : "200",
-      messages : "23",
-      category: ['nice'],
+      name: 'Тестовый топик',
+      author: 'Дарья Сергеевна Золоторева',
+      raiting : "11",
+      messages : "3",
+      category: ['Тех. процесс'],
     },
     {
         key: '2',
-        name: 'Как какать',
-        status: 32,
-        author: 'New York No. 1 Lake Park',
-        replies : "23",
-        raiting : "200",
-        messages : "23",
-        category: ['developer'],
-      }
+        name: 'Тестовая статья',
+        author: 'Дарья Сергеевна Золоторева',
+        raiting : "10",
+        messages : "5",
+        category: ['Сервисы'],
+      },
+      {
+          key: '3',
+          name: 'Распределение налогов',
+          author: 'Дарья Сергеевна Золоторева',
+          raiting : "5",
+          messages : "3",
+          category: ['Другое'],
+        },
+        {
+            key: '4',
+            name: 'Россети тестовая статья',
+            author: 'Дарья Сергеевна Золоторева',
+            raiting : "2",
+            messages : "0",
+            category: ['Безопасность'],
+          },
+          {
+              key: '5',
+              name: 'Росссети',
+              author: 'Дарья Сергеевна Золоторева',
+              raiting : "0",
+              messages : "0",
+              category: ['Digital'],
+            },
+            {
+                key: '6',
+                name: 'Расширение транспортной сети',
+                author: 'Дарья Сергеевна Золоторева',
+                raiting : "0",
+                messages : "0",
+                category: ['Другое'],
+              }
   ];
 
   const { Search } = Input;
@@ -97,7 +121,7 @@ export default (props) => {
                                 <div style={{fontFamily: "Roboto", fontWeight: 500, fontSize: 16, color: "#929292", paddingRight: 20}}>
                                   Сначала:
                                 </div>  
-                                <Select size={"middle"} defaultValue="Популярные" style={{ width: 150 }}>
+                                <Select size={"middle"} defaultValue="Новые" style={{ width: 150 }}>
                                   <Select value="Новые">Новые</Select>
                                   <Select value="Популярные">Популярные</Select>
                                 </Select>

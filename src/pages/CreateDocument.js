@@ -12,14 +12,14 @@ const { TextArea } = Input;
 const fileList = [
     {
       uid: '-1',
-      name: 'xxx.png',
+      name: 'план.png',
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
       thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
     {
         uid: '-1',
-        name: 'xxx.png',
+        name: 'Проект.docx',
         status: 'done',
         url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
         thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
@@ -59,7 +59,7 @@ export default (props) => {
     }
 
     var data = [{title: "Улучшение трубопровода", descr: "Улучшение трубопроводаУлучшение трубопроводаУлучшение трубопроводаУлучшение трубопровода"}, {title: "Улучшение прокладки проводов", descr: "Улучшение прокладки проводовУлучшение прокладки проводовУлучшение прокладки проводов"}]
-    var usersDb = [{name: "Илья", lastName: "Крутько", photo: "https://avatars.mds.yandex.net/get-zen_doc/163385/pub_5bb70bfc049c1c00aa163781_5bb70c53ad289e00ac6bf422/scale_1200" }, {name: "Даниил", lastName: "Кудряшев", photo: "https://avatars.mds.yandex.net/get-zen_doc/1894366/pub_5dd2e74d24f3107fe3149016_5dd2e897f2b9ae76f74dc5f4/scale_1200" }]
+    var usersDb = [{name: "Сергей", lastName: "Воронежский", photo: "https://avatars.mds.yandex.net/get-zen_doc/163385/pub_5bb70bfc049c1c00aa163781_5bb70c53ad289e00ac6bf422/scale_1200" }, {name: "Владимир", lastName: "Кураткин", photo: "https://www.mosoblduma.ru/upload/site1/djdj.jpg" }]
 
     var { transcript, interimTranscript, resetTranscript } = useSpeechRecognition()
 
@@ -69,7 +69,7 @@ export default (props) => {
     const [visible, setVisible] = useState(false)
     const [title, setTitle] = useState('')
     const [showSimilarities, setShowSimilarities] = useState(false)
-    const [authorsPhotos, setAuthorsPhotos] = useState(['https://images.genius.com/3a3d16332164a48f9e46f160cb8cd6fa.300x300x1.jpg'])
+    const [authorsPhotos, setAuthorsPhotos] = useState(['https://www.modnapricha.info/wp-content/uploads/2019/12/top-strizhek-dlya-kvadratnoj-formy-lica3.jpg'])
     const [addUserModal, setAddUserModal] = useState(false)
     const [userSearchField, setUserSearchField] = useState('')
     const [descrData, setDescrData] = useState('')
@@ -223,6 +223,7 @@ function AuthorsPhotos(props)
             <div style={{borderColor: 'C4C4C4', marginRight: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center'}} onClick={()=>{props.onAdd()}}>
                 <img src={add} width={65} height={65}/>
             </div>
+            
             {
                 props.photos.map((item, index) => {
                     return <img src={item} width={65} height={65} style={{marginRight: 10, borderRadius: 50}} /> 

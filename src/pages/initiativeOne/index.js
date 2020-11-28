@@ -31,22 +31,26 @@ export default (props) => {
         data = newData;
     }
 
+
     const [initiatData, setInitiatData] = useState(fetchData())
 
-    const fetchDataComents = async () => {
-        var response = await fetch("https://corser-any.herokuapp.com/84.201.137.231:5000/get_messages", {
+    
+
+    
+    async function fetchDataComents() {
+        var response = fetch("https://corser-any.herokuapp.com/84.201.137.231:5000/get_messages", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 topic: "Распределение налогов"
             })
         });
-        var responseJson = await response.json();
-       // console.log(responseJson);
-        return responseJson;
+        return  await response.then(data=>{return data.json().then(data=>{return data})});
     }
 
     const [comm, setComm] = useState(fetchDataComents())
+
+    console.log(comm);
 
     const [count, setCount] = useState(0);
 
@@ -59,7 +63,7 @@ export default (props) => {
             dataInic={"12.10.2020 19:23"} title={"Распределение налогов"} rate={data.rates}
             textCoast={"100.000"} textTime={"10"}
             changeData={(newData) => (setInitiatData(newData))}
-            coment={fetchDataComents()}
+            coment={comm}
         />
     )
 }
@@ -266,7 +270,11 @@ function InitiativeOne(props) {
                                             <img width="22" height="22" src="https://www.flaticon.com/svg/static/icons/svg/739/739158.svg" alt="Telegram" title="Telegram" class="loaded" />
                                         </div>
                                     </Button>
-                                    {props.coment == null ? <div /> :
+                                    {
+                                        console.log(props.coment)
+                                    }
+                                    {   
+                                    props.coment == null ? <div /> :
                                         <div>
                                             <ComentTelegOne name={props.coment[0].user_name} text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
                                             <ComentTelegOne name="Иван Михайлов" text="На сегодня происходят разные вещи..." />
