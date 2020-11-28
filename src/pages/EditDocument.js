@@ -184,12 +184,15 @@ export default (props) => {
         )
     }
     const history = useHistory();
+    const downloadFile = () => {
+        window.location.href = "http://84.201.137.231:5001/get-file"
+      }
     return (
         <div>
         <Modal
             title="Подтвердите оригинальность идеи"
             visible={visible}
-            onOk={()=>{setVisible(false); history.push({pathname:  "/profile"}) }}
+            onOk={()=>{setVisible(false); history.push({pathname:  "/profile"}); downloadFile() }}
             onCancel={()=>{setVisible(false)}}
             okText={"Подтверждаю"}
             cancelText={"Еще нет"}
@@ -356,7 +359,7 @@ export default (props) => {
                                     </Col>
                                     <Col span={6}>
                                     <Button onClick={()=>{setVisible(true)}} type="primary" shape="round" icon={<PlusOutlined />} size={"middle"} color={"#008A60"} style={{float: 'right'}}>
-                                        Добавить инициативу
+                                        Сохранить инициативу
                                     </Button>
                                     </Col>
                                 </div>

@@ -41,25 +41,7 @@ export default (props) => {
 
     const [initiatData, setInitiatData] = useState(fetchData())
 
-<<<<<<< HEAD
-    
-
-    
-    async function fetchDataComents() {
-        var response = fetch("https://corser-any.herokuapp.com/84.201.137.231:5000/get_messages", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                topic: "Распределение налогов"
-            })
-        });
-        return  await response.then(data=>{return data.json().then(data=>{return data})});
-    }
-
-    const [comm, setComm] = useState(fetchDataComents())
-=======
     const [comm, setComm] = useState()
->>>>>>> 810604ea1f4195670ba2260a2f512d825048da28
 
     console.log(comm);
 
@@ -92,14 +74,10 @@ export default (props) => {
             dataInic={"12.10.2020 19:23"} title={"Распределение налогов"} rate={data.rates}
             textCoast={"100.000"} textTime={"10"}
             changeData={(newData) => (setInitiatData(newData))}
-<<<<<<< HEAD
-            coment={comm}
-=======
             coment={fromTelegram}
 
             sendComment={(newData) => (setInerCom(inerCom.add(newData)))}
             inerComment={inerCom}
->>>>>>> 810604ea1f4195670ba2260a2f512d825048da28
         />
     )
 }
@@ -440,20 +418,6 @@ function InitiativeOne(props) {
                                                 alt="Telegram" title="Telegram" class="loaded" />
                                         </div>
                                     </Button>
-<<<<<<< HEAD
-                                    {
-                                        console.log(props.coment)
-                                    }
-                                    {   
-                                    props.coment == null ? <div /> :
-                                        <div>
-                                            <ComentTelegOne name={props.coment[0].user_name} text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
-                                            <ComentTelegOne name="Иван Михайлов" text="На сегодня происходят разные вещи..." />
-                                            <ComentTelegOne name="Александр Цветич" text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
-                                            <ComentTelegOne name="Илья Ильичь" text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
-                                            <ComentTelegOne name="Иван Михайлов" text="На сегодня происходят разные вещи..." />
-                                        </div>
-=======
                                     {props.coment == null || props.coment.length == 0 ? <div /> :
                                         props.coment.length == 1 ?
                                             <div>
@@ -488,7 +452,6 @@ function InitiativeOne(props) {
                                                             <ComentTelegOne name={props.coment[3]?.user_name} text={props.coment[3]?.message} />
                                                             <ComentTelegOne name={props.coment[4]?.user_name} text={props.coment[4]?.message} />
                                                         </div>
->>>>>>> 810604ea1f4195670ba2260a2f512d825048da28
                                     }
                                 </Content>
                             </Layout>

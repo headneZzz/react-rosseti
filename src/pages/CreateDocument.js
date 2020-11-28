@@ -74,7 +74,18 @@ export default (props) => {
     const [userSearchField, setUserSearchField] = useState('')
     const [descrData, setDescrData] = useState('')
     const [voiceOn, setVoiceOn] = useState(false)
+    const [elasticData, setElasticData] = useState([]);
     const voiceInput = useHasChanged(transcript)
+
+    const fetchElastic = async () => {
+        var response = await fetch('https://corser-any.herokuapp.com/84.201.137.231:9200/rosseti2/topics/_search?' + new URLSearchParams({
+            q: 'name:' + title,
+            pretty: false
+        }))
+        var responseJson = await response.json();
+        console.log(responseJson)
+        return responseJson;
+    }
 
     useEffect(() => {
         if (voiceInput ) {
@@ -84,15 +95,39 @@ export default (props) => {
 
     var showSimilar = <div />;
 
-    if(showSimilarities && data.filter((item)=>item.title.toLocaleLowerCase().includes(title.toLocaleLowerCase())).length > 0)
+    if(showSimilarities && elasticData.length > 0)
     {
         showSimilar = ( 
                 <div  style={{marginBottom: 10}}>
-                    <SimilarInitiatives similar={data.filter((item)=>item.title.toLocaleLowerCase().includes(title.toLocaleLowerCase()))} />
+                    <SimilarInitiatives similar={elasticData} />
                 </div>
         )
     }
     const history = useHistory();
+
+    function getElasticArray(j)
+    {
+        if(j != null)
+            {
+                if(j.hits != null)
+                {
+                    if(j.hits.hits != null)
+                    {
+                        return j.hits.hits;
+                    }
+                }
+            }
+        return [];
+    }
+
+    useEffect(() => {
+        fetchElastic().then((data) => {
+            setElasticData(getElasticArray(data));
+        } 
+
+    );
+}, [title]);
+console.log(elasticData);
     return (
         <div>
         <Modal
@@ -246,12 +281,12 @@ function SimilarInitiatives(props)
                     return (<div>
                         <div style={{color: '#005B9C', fontSize: 14, fontFamily: 'Roboto'}}>
                             {
-                                item.title
+                                item._source.name
                             }
                         </div>
                         <div style={{fontSize: 12, fontFamily: 'Roboto', borderBottom: 2, borderTop: 0, borderRight: 0, borderLeft: 0, borderColor: '#F0F0F0', paddingBottom: (index + 1) != props.similar.length ? 5 : 0 , marginBottom: (index + 1) != props.similar.length ? 5 : 0, borderStyle: (index + 1) != props.similar.length ? 'solid' : 'none'}}>
                             {
-                                item.descr
+                                item._source.description
                             }
                         </div>
                     </div>);
