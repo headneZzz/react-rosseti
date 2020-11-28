@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {Layout} from 'antd';
 import Title from "../components/Title"
 import Form from "../components/Form"
+import Header from '../components/Header'
 export default (props) => {
     return (
         <div>
@@ -14,7 +15,8 @@ export default (props) => {
                         backgroundColor: 'white'
                     }}>
                         
-                        <Form />
+                        <Header selected={"stocktaking"}/>
+                        {props.children}
                     </Layout>
                 </Layout>
             </Layout>

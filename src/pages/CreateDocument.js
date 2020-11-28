@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {Layout, Row, Col, Image, Button, Input, Upload, Modal} from 'antd';
-import {AppstoreOutlined, TableOutlined, DownOutlined, CheckOutlined, CloseOutlined, PlusOutlined, FileAddOutlined, UploadOutlined    } from "@ant-design/icons";
+import {AppstoreOutlined, TableOutlined, DownOutlined, CheckOutlined, CloseOutlined, PlusOutlined, FileAddOutlined, UploadOutlined, AudioOutlined} from "@ant-design/icons";
 import Title from "../components/Title"
 import Form from "../components/Form"
 import add from './add.png'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+
 const { TextArea } = Input;
 
 const fileList = [
@@ -39,12 +41,26 @@ const fileList = [
       borderRadius: 5
     }
 
-
+    
 export default (props) => {
+
+    const useHasChanged= (val) => {
+        const prevVal = usePrevious(val)
+        return prevVal !== val
+    }
+
+    const usePrevious = (value) => {
+        const ref = useRef();
+        useEffect(() => {
+        ref.current = value;
+        });
+        return ref.current;
+    }
 
     var data = [{title: "Улучшение трубопровода", descr: "Улучшение трубопроводаУлучшение трубопроводаУлучшение трубопроводаУлучшение трубопровода"}, {title: "Улучшение прокладки проводов", descr: "Улучшение прокладки проводовУлучшение прокладки проводовУлучшение прокладки проводов"}]
     var usersDb = [{name: "Илья", lastName: "Крутько", photo: "https://avatars.mds.yandex.net/get-zen_doc/163385/pub_5bb70bfc049c1c00aa163781_5bb70c53ad289e00ac6bf422/scale_1200" }, {name: "Даниил", lastName: "Кудряшев", photo: "https://avatars.mds.yandex.net/get-zen_doc/1894366/pub_5dd2e74d24f3107fe3149016_5dd2e897f2b9ae76f74dc5f4/scale_1200" }]
 
+    var { transcript, interimTranscript, resetTranscript } = useSpeechRecognition()
 
     const [authors, setAuthors] = useState([])
     const [expences, setExpences] = useState([])
@@ -55,6 +71,15 @@ export default (props) => {
     const [authorsPhotos, setAuthorsPhotos] = useState(['https://images.genius.com/3a3d16332164a48f9e46f160cb8cd6fa.300x300x1.jpg'])
     const [addUserModal, setAddUserModal] = useState(false)
     const [userSearchField, setUserSearchField] = useState('')
+    const [descrData, setDescrData] = useState('')
+    const [voiceOn, setVoiceOn] = useState(false)
+    const voiceInput = useHasChanged(transcript)
+
+    useEffect(() => {
+        if (voiceInput ) {
+            setDescrData(transcript)
+        }
+    });
 
     var showSimilar = <div />;
 
@@ -140,26 +165,13 @@ export default (props) => {
                                 
                                 <div>
                                     <div style={tableTextStyle}>
-                                        Недостатки
-                                    </div>
-                                    <div>
-                                        <TextArea rows={4} placeholder="Опешите существующие недостатки..." style={tableInputStyle}/>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style={tableTextStyle}>
                                         Решение
                                     </div>
-                                    <div>
-                                        <TextArea rows={4} placeholder="Опешите решение..." style={tableInputStyle}/>
-                                    </div>
-                                </div>
-                                <div>
                                     <div style={tableTextStyle}>
-                                        Результат
+                                        <Button danger={voiceOn == true ? true : false} onClick={async ()=>{ setVoiceOn(!voiceOn); voiceOn == false ? SpeechRecognition.startListening({continuous: true, language: 'ru'}) : SpeechRecognition.stopListening();}}><AudioOutlined /></Button>
                                     </div>
                                     <div>
-                                        <TextArea rows={4} placeholder="Опешите ожидаемый положительный результат..." style={tableInputStyle}/>
+                                        <TextArea suffix={<AudioOutlined />}  rows={10} placeholder="Опешите решение..." style={tableInputStyle} value={descrData} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
                                 <div style={{paddingBottom : 15}}>
