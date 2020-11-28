@@ -47,21 +47,24 @@ export default (props) => {
 
     const [count, setCount] = useState(0);
 
+    const [rates, setRates] = useState(12);
+    const [ratesCh, setRatesCh] = useState(0);
+    
     const [inerCom, setInerCom] = useState([
         {
             user_name: "Михаиль Круть",
             message: "Довольно интересное решение но я считаю что его необходимо дорабьотать следующим образом.",
-            data: "28.11.2020 18:32"
+            data: "28.11.2020 18:32:29"
         },
         {
             user_name: "Иван Иванов",
             message: "Меня не устраивают следующие моменты в этой инициативе",
-            data: "28.11.2020 18:31"
+            data: "27.11.2020 18:31:12"
         },
         {
             user_name: "Денис Древесный",
             message: "Работающие на официальной работе или приезжие граждане работают неофициально",
-            data: "28.11.2020 18:25"
+            data: "27.11.2020 18:25:53"
         },
     ]);
 
@@ -71,12 +74,12 @@ export default (props) => {
             textProblem={"На сегодня государство недополучает миллиарды налогов из-за того, что работающие на официальной работе или приезжие граждане работают неофициально. Например ремонтируют квартиры, таксуют, перепродают. С другой стороны для ИП есть обязательные налоги, которые в случае небольших подработок просто нереально выплатить. Также, например для такси, есть масса требований, которые нет смысла требовать от людей, подвозящих по пути пассажиров три-четыре раза в неделю. Это и оклейка машины, и квитанции, и медосмотры."}
             textSolve={"На сегодня государство недополучает миллиарды налогов из-за того, что работающие на официальной работе или приезжие граждане работают неофициально. Например ремонтируют квартиры, таксуют, перепродают. С другой стороны для ИП есть обязательные налоги, которые в случае небольших подработок просто нереально выплатить. Также, например для такси, есть масса требований, которые нет смысла требовать от людей, подвозящих по пути пассажиров три-четыре раза в неделю. Это и оклейка машины, и квитанции, и медосмотры. "}
             textEconomic={"На сегодня государство недополучает миллиарды налогов из-за того, что работающие на официальной работе или приезжие граждане работают неофициально. Например ремонтируют квартиры, таксуют, перепродают. С другой стороны для ИП есть обязательные налоги, которые в случае небольших подработок просто нереально выплатить. Также, например для такси, есть масса требований, которые нет смысла требовать от людей, подвозящих по пути пассажиров три-четыре раза в неделю. Это и оклейка машины, и квитанции, и медосмотры."}
-            dataInic={"12.10.2020 19:23"} title={"Распределение налогов"} rate={data.rates}
+            dataInic={"12.10.2020 19:23"} title={"Распределение налогов"} rate={rates + ratesCh}
             textCoast={"100.000"} textTime={"10"}
-            changeData={(newData) => (setInitiatData(newData))}
+            changeData={(newData) => (setRatesCh(newData))}
             coment={fromTelegram}
 
-            sendComment={(newData) => (setInerCom(inerCom.add(newData)))}
+            sendComment={(newData) => (setInerCom([...inerCom.reverse(),newData].reverse()))}
             inerComment={inerCom}
         />
     )
@@ -366,7 +369,7 @@ function InitiativeOne(props) {
                                             icon={<Icon icon={caretDownFilled} style={{ color: "red", }}
                                                 height={22} />} size={25}
                                             onClick={() => {
-                                                props.changeData({ rates: props.rates - 1 })
+                                                props.changeData(-1)
                                             }}
                                         ></Button>
                                         <span style={{
@@ -378,7 +381,7 @@ function InitiativeOne(props) {
                                             icon={<Icon icon={caretUpFilled} style={{ color: "green" }} height={22} />}
                                             size={25}
                                             onClick={() => {
-                                                props.changeData({ rates: props.rates + 1 })
+                                                props.changeData(1)
                                             }}
                                         ></Button>
                                     </div>
@@ -602,7 +605,8 @@ function ComentOne(props) {
 
 function MakeComentOne(props) {
     return (<Input
-        onPressEnter = {(newData) => (props.sendComment(newData))}
-         style={{ marginTop: "15px" }} placeholder="Отзыв..." size={'large'} 
+        onPressEnter = {(e) => {props.sendComment({message: e.target.value, user_name: "Дарья Сергеевна Золоторева", data: (new Date()).toLocaleString() });
+                         e.target.value = "";}}
+        style={{ marginTop: "15px" }} placeholder="Отзыв..." size={'large'} 
     />);
 }
