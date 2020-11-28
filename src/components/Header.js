@@ -28,6 +28,7 @@ export default (props) => {
 
 
 function Profile(props) {
+    
     return (
         <div style={{display: 'flex', flexDirection: 'col', justifyContent:'center', float: 'right'}}>
             <div className={"profile-container"} style={{display: "flex", float: "right", flexDirection: 'row', marginTop: 15}}>

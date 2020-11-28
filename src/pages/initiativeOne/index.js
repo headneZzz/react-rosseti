@@ -12,6 +12,17 @@ import './init.css'
 export default (props) => {
     const data = { rates: 21 }
 
+    async const getComments = () => {
+        const response = await fetch("http://84.201.137.231:5000/get_messages", {
+            method: 'POST',
+            body: JSON.stringify({
+                user_name: "KudryashevDaniil",
+                topic: "Распределение налогов"
+            })
+        });
+        return response.date;
+    }
+
     const fetchData = () => {
         return data;
     }
@@ -22,6 +33,11 @@ export default (props) => {
 
     const [initiatData, setInitiatData] = useState(fetchData())
 
+    useEffect(() => {
+        setCount
+    })
+
+    const [count, setCount] = useState(0);
 
     const { Header } = Layout;
     return (
@@ -44,7 +60,6 @@ async function postData() {
             topic: "Распределение налогов"
         })
     });
-
 }
 
 function InitiativeOne(props) {
@@ -144,7 +159,7 @@ function InitiativeOne(props) {
                                                 <span style={{ fontWeight: 500, fontSize: 16, color: "black" }}>
                                                     {"Описание проблемы:"}
                                                 </span>
-                                                <span style={{ fontWeight: 400, fontSize: 14, color: "black", float: "left", textAlign: "justify" }}>
+                                             {/*   <span style={{ fontWeight: 400, fontSize: 14, color: "black", float: "left", textAlign: "justify" }}>
                                                     {props.textProblem}
                                                 </span>
                                                 <span style={{ fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
@@ -155,7 +170,7 @@ function InitiativeOne(props) {
                                                 </span>
                                                 <span style={{ fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
                                                     {"Экономический эффект:"}
-                                                </span>
+                                                        </span>*/}
                                                 <span style={{ fontWeight: 400, fontSize: 14, color: "black", float: "left", textAlign: "justify" }}>
                                                     {props.textEconomic}
                                                 </span>
