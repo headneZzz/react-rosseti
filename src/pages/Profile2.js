@@ -171,7 +171,7 @@ function Card(props)
         }
         if(props.type == "stage2")
         {
-            return ("#f2994a")
+            return ("#008A60")
         }
         if(props.type == "stage3")
         {
@@ -206,11 +206,10 @@ function Card(props)
                             Этап 2.
                         </div>
                         <div>
-                            Требуется формальное описание.
+                            Ожидает модерации.
                         </div>
                     </div>
                     <div style={{display: "flex", flexDirection: 'column', justifySelf: 'center', alignSelf: 'center', fontSize: 24}}>
-                            <FormOutlined style={{justifySelf: 'center'}}/>
                     </div>
                 
                 </div>

@@ -10,20 +10,6 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 const { TextArea } = Input;
 
 const fileList = [
-    {
-      uid: '-1',
-      name: 'план.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-        uid: '-1',
-        name: 'Проект.docx',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
   ];
 
 
@@ -133,7 +119,7 @@ console.log(elasticData);
         <Modal
             title="Подтвердите оригинальность идеи"
             visible={visible}
-            onOk={()=>{setVisible(false); history.push({pathname:  "/main"}) }}
+            onOk={()=>{setVisible(false); history.push({pathname:  "/latest"}) }}
             onCancel={()=>{setVisible(false)}}
             okText={"Подтверждаю"}
             cancelText={"Еще нет"}
@@ -286,7 +272,7 @@ function SimilarInitiatives(props)
                         </div>
                         <div style={{fontSize: 12, fontFamily: 'Roboto', borderBottom: 2, borderTop: 0, borderRight: 0, borderLeft: 0, borderColor: '#F0F0F0', paddingBottom: (index + 1) != props.similar.length ? 5 : 0 , marginBottom: (index + 1) != props.similar.length ? 5 : 0, borderStyle: (index + 1) != props.similar.length ? 'solid' : 'none'}}>
                             {
-                                item._source.description
+                                item._source.description.slice(0, 50)
                             }
                         </div>
                     </div>);

@@ -12,6 +12,8 @@ import InitiativeOne from './pages/initiativeOne/index'
 import ProfilePage from './pages/Profile'
 import CreateDocument from './pages/CreateDocument'
 import EditDocument from './pages/EditDocument'
+import Latest from './components/Form2'
+import SelfProfile from './pages/Profile2'
 export default function App() {
     return (
         <BrowserRouter>
@@ -24,6 +26,8 @@ export default function App() {
                     <PrivateRoute path="/profile" component={ProfilePage}/>
                     <PrivateRoute path="/createdocument" component={CreateDocument}/>
                     <PrivateRoute path="/editdocument" component={EditDocument}/>
+                    <PrivateRoute path="/latest" component={Latest}/>
+                    <PrivateRoute path="/selfprofile" component={SelfProfile}/>
                 </MainPage>
                 
                 <Redirect from="/" to="/profile"/>

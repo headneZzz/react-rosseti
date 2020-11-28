@@ -49,13 +49,13 @@ const fileList = [
           title: 'Статья затрат',
           dataIndex: 'name',
           key: 'name',
-          render: text => <Input value={text} />
+          render: text => <Input  />
         },
         {
           title: 'Сумма рублей (с НДС)',
           dataIndex: 'summ',
           key: 'summ',
-          render: text => <Input value={text} />
+          render: text => <Input />
         },
       ];
 
@@ -64,13 +64,13 @@ const fileList = [
           title: 'Этап',
           dataIndex: 'name',
           key: 'name',
-          render: text => <Input value={text} />
+          render: text => <Input />
         },
         {
           title: 'Срок, дней',
           dataIndex: 'time',
           key: 'time',
-          render: text => <Input value={text} />
+          render: text => <Input />
         },
       ];
 
@@ -85,7 +85,7 @@ const fileList = [
           title: 'Вознаграждение (в %)',
           dataIndex: 'fee',
           key: 'fee',
-          render: text => <Input value={text} />
+          render: text => <Input />
         },
       ];
 
@@ -123,29 +123,9 @@ export default (props) => {
     const voiceInput = useHasChanged(transcript)
 
     const [dataSource1, setDataSource1] = useState([
-        {
-          key: '1',
-          name: 'Закупка оборудования',
-          summ: '1000000',
-        },
-        {
-          key: '2',
-          name: 'Подготовка документации',
-          summ: '50000',
-        },
       ])
 
       const [dataSource2, setDataSource2] = useState([
-        {
-          key: '1',
-          name: 'Подготовка документов',
-          time: '10',
-        },
-        {
-          key: '2',
-          name: 'Реализация',
-          time: '50',
-        },
       ])
 
     useEffect(() => {
@@ -187,12 +167,20 @@ export default (props) => {
     const downloadFile = () => {
         window.location.href = "http://84.201.137.231:5001/get-file"
       }
+    const sendMailToClient = async () => {
+        await fetch('http://84.201.137.231:5005/sendemail_silent_to_client')
+    }
+
+    const sendMailToAdmin = async () => {
+        await fetch('http://84.201.137.231:5005/sendemail_silent_to_admin')
+    }
+
     return (
         <div>
         <Modal
             title="Подтвердите оригинальность идеи"
             visible={visible}
-            onOk={()=>{setVisible(false); history.push({pathname:  "/profile"}); downloadFile() }}
+            onOk={()=>{setVisible(false); sendMailToClient(); sendMailToAdmin(); history.push({pathname:  "/selfprofile"}); downloadFile();  }}
             onCancel={()=>{setVisible(false)}}
             okText={"Подтверждаю"}
             cancelText={"Еще нет"}
@@ -260,10 +248,10 @@ export default (props) => {
                                 
                                 <div>
                                     <div style={tableTextStyle}>
-                                        Решение
+                                        Описание:
                                     </div>
                                     <div>
-                                        <TextArea disabled={true} suffix={<AudioOutlined />}  rows={10} value={"Сокращение издержек обращения за счет уменьшения транспортных расходов вследствие изменения условий завоза товаров, расширения их закупки у местных поставщиков на льготных условиях, развития централизованной доставки и кольцевого завоза товаров, совершенствования товародвижения; уменьшения расходов на оплату труда путем сокращения до оптимальных размеров численности работающих и улучшения использования рабочего времени; устранения перерасходов по сравнению с планом но остальным статьям издержек обращения"} style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea disabled={true} suffix={<AudioOutlined />}  rows={10} value={"Сокращение транспортных расходов"} style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
 
@@ -272,7 +260,7 @@ export default (props) => {
                                         Описание действительного положения с указанием существующих недостатков:
                                     </div>
                                     <div>
-                                        <TextArea  suffix={<AudioOutlined />}  rows={6} value="Несовершенная транспортная система" style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea  suffix={<AudioOutlined />}  rows={6}  style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
 
@@ -281,7 +269,7 @@ export default (props) => {
                                         Описание предлагаемого решения:
                                     </div>
                                     <div>
-                                        <TextArea suffix={<AudioOutlined />}  rows={6} value="Сокращение издержек обращения за счет уменьшения транспортных расходов вследствие изменения условий завоза товаров, расширения их закупки у местных поставщиков на льготных условиях, развития централизованной доставки и кольцевого завоза товаров, совершенствования товародвижения; уменьшения расходов на оплату труда путем сокращения до оптимальных размеров численности работающих и улучшения использования рабочего времени; устранения перерасходов по сравнению с планом но остальным статьям издержек обращения" style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea suffix={<AudioOutlined />}  rows={6} value="Сокращение транспортных расходов" style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
 
@@ -290,15 +278,15 @@ export default (props) => {
                                         Ожидаемый положительный эффект от использования 
                                     </div>
                                     <div>
-                                        <TextArea suffix={<AudioOutlined />}  rows={6} value="Улучшение финансового состояния предприятий торговли за счет сокращения дефицита собственного оборотного капитала." style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea suffix={<AudioOutlined />}  rows={6} style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
                                 </div>
                                 <div>
                                     <div
                                     onClick={()=>setDataSource1([...dataSource1, {
                                         key: (dataSource1.length + 1).toString(),
-                                        name: "Статья расходов - " + (dataSource1.length + 1).toString(),
-                                        summ: '0',
+                                        name: "",
+                                        summ: '',
                                       }])}
                                     type="primary"
                                     style={{
@@ -309,15 +297,15 @@ export default (props) => {
                                     >
                                         Добавить статью затрат...
                                     </div>
-                                    <Table pagination={false} dataSource={dataSource1} columns={columns} />
+                                    <Table locale={{emptyText: 'Нет данных'}} pagination={false} dataSource={dataSource1} columns={columns} />
                                 </div>
 
                                 <div style={{paddingTop: 20, paddingBottom: 20}}>
                                     <div
                                     onClick={()=>setDataSource2([...dataSource2, {
                                         key: (dataSource2.length + 1).toString(),
-                                        name: "Этап - " + (dataSource2.length + 1).toString(),
-                                        time: '0',
+                                        name: "",
+                                        time: '',
                                       }])}
                                     type="primary"
                                     style={{
@@ -328,7 +316,7 @@ export default (props) => {
                                     >
                                         Добавить этап...
                                     </div>
-                                    <Table pagination={false} dataSource={dataSource2} columns={columns2} />
+                                    <Table locale={{emptyText: 'Нет данных'}} pagination={false} dataSource={dataSource2} columns={columns2} />
                                 </div>
                                 <div style={{paddingTop: 20, paddingBottom: 20}}>
                                     <Table pagination={false} dataSource={dataSource3} columns={columns3} />
