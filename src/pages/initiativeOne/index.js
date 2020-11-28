@@ -9,19 +9,19 @@ import caretUpFilled from '@iconify-icons/ant-design/caret-up-filled';
 import { mdiTelegram } from '@mdi/js';
 import './init.css'
 
+
 export default (props) => {
     const data = { rates: 21 }
 
-    async const getComments = () => {
+    /*async const getComments = () => {
         const response = await fetch("http://84.201.137.231:5000/get_messages", {
             method: 'POST',
             body: JSON.stringify({
-                user_name: "KudryashevDaniil",
                 topic: "Распределение налогов"
             })
         });
         return response.date;
-    }
+    }*/
 
     const fetchData = () => {
         return data;
@@ -33,9 +33,20 @@ export default (props) => {
 
     const [initiatData, setInitiatData] = useState(fetchData())
 
-    useEffect(() => {
-        setCount
-    })
+    const fetchDataComents = async () => {
+        var response = await fetch("https://corser-any.herokuapp.com/84.201.137.231:5000/get_messages", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                topic: "Распределение налогов"
+            })
+        });
+        var responseJson = await response.json();
+       // console.log(responseJson);
+        return responseJson;
+    }
+
+    const [comm, setComm] = useState(fetchDataComents())
 
     const [count, setCount] = useState(0);
 
@@ -47,19 +58,21 @@ export default (props) => {
             textEconomic={"На сегодня государство недополучает миллиарды налогов из-за того, что работающие на официальной работе или приезжие граждане работают неофициально. Например ремонтируют квартиры, таксуют, перепродают. С другой стороны для ИП есть обязательные налоги, которые в случае небольших подработок просто нереально выплатить. Также, например для такси, есть масса требований, которые нет смысла требовать от людей, подвозящих по пути пассажиров три-четыре раза в неделю. Это и оклейка машины, и квитанции, и медосмотры."}
             dataInic={"12.10.2020 19:23"} title={"Распределение налогов"} rate={data.rates}
             textCoast={"100.000"} textTime={"10"}
-            changeData = {(newData) => (setInitiatData(newData))}
+            changeData={(newData) => (setInitiatData(newData))}
+            coment={fetchDataComents()}
         />
     )
 }
 
-async function postData() {
-    const response = await fetch("http://84.201.137.231:5000/invite_user", {
+function postData() {
+    var response = fetch("https://corser-any.herokuapp.com/84.201.137.231:5000/invite_user", {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             user_name: "KudryashevDaniil",
             topic: "Распределение налогов"
         })
-    });
+    }).then((resp) => resp.text()).then((res) => console.log(res));
 }
 
 function InitiativeOne(props) {
@@ -67,99 +80,88 @@ function InitiativeOne(props) {
     const [isLoading, setLoading] = useState(true);
     const [visible, setVisible] = useState(false)
 
-    fetch("http://example.url/page.php")
-        .then((response) => response.json())
-        .then((response) => {
-            this.setState({ items: response });
-            this.setState({ isLoaded: true });
-        })
-        .then((error) => {
-            this.setState({ false: true });
-            this.setState({ error });
-        })
-
     const { Content } = Layout;
     return (
         <div>
-        <Modal
-            title="Телеграмм"
-            visible={visible}
-            onOk={()=>{setVisible(false)}}
-            
-            okText={"Ок"}
-       
-        >
-            <p style={{ fontSize:16, textAlign:'center' }}>Вы были добавленны в телеграмм беседу</p>
-        </Modal>
-        <Layout className="wrapper" style={{ backgroundColor: "white" }}>
-            <Layout style={{ backgroundColor: "white" }} style={{ color: "#D8E9FF", flex: "none", backgroundColor: "white" }}>
-                <div className={"initiative"}>
-                    <Row >
-                        <Layout style={{ marginTop: 20, marginLeft: '5vw', marginRight: '1vw', width: '60vw', backgroundColor: "white" }}>
+            <Modal
+                title="Телеграмм"
+                visible={visible}
+                onOk={() => { setVisible(false) }}
 
-                            <Content className="site-layout-background" style={{
-                                padding: '0 15px',
-                                overflow: 'auto',
-                                borderRadius: 15
-                                , width: '65vw',
-                                boxShadow: '0px 3px 8px 0px #ECECEC',
-                            }}>
-                                <Row>
-                                    <Col>
-                                        <div style={{ margin: 10, marginBottom: 0, display: "flex", flexDirection: "row", justifyContent: "space-between" }} >
-                                            <div style={{ display: "flex", flexDirection: "row", }}>
-                                                <span style={{ fontWeight: 400, fontSize: 30, color: "black" }}>
-                                                    {props.title}
-                                                </span>
-                                                <div style={{ display: "flex", flexDirection: "row", marginTop: 8 }}>
-                                                    <Icon icon={eyeFilled} style={{ color: "lightGray", marginLeft: 15, marginTop: 10 }} height={18} />
-                                                    <span style={{ fontWeight: 300, fontSize: 22, color: "lightGray", marginLeft: 5 }}>
-                                                        {"2.4k"}
+                okText={"Ок"}
+
+            >
+                <p style={{ fontSize: 16, textAlign: 'center' }}>Вы были добавленны в телеграмм беседу</p>
+            </Modal>
+            <Layout className="wrapper" style={{ backgroundColor: "white" }}>
+                <Layout style={{ backgroundColor: "white" }} style={{ color: "#D8E9FF", flex: "none", backgroundColor: "white" }}>
+                    <div className={"initiative"}>
+                        <Row >
+                            <Layout style={{ marginTop: 20, marginLeft: '5vw', marginRight: '1vw', width: '60vw', backgroundColor: "white" }}>
+
+                                <Content className="site-layout-background" style={{
+                                    padding: '0 15px',
+                                    overflow: 'auto',
+                                    borderRadius: 15
+                                    , width: '65vw',
+                                    boxShadow: '0px 3px 8px 0px #ECECEC',
+                                }}>
+                                    <Row>
+                                        <Col>
+                                            <div style={{ margin: 10, marginBottom: 0, display: "flex", flexDirection: "row", justifyContent: "space-between" }} >
+                                                <div style={{ display: "flex", flexDirection: "row", }}>
+                                                    <span style={{ fontWeight: 400, fontSize: 30, color: "black" }}>
+                                                        {props.title}
                                                     </span>
-                                                </div>
-                                            </div>
-                                            <Button type="primary" shape="round" size={22} style={{ marginTop: 10 }}>
-                                                <span style={{ fontWeight: 500, fontSize: 14, color: "white" }}> {"Одобрить"} </span>
-                                            </Button>
-                                        </div>
-
-
-                                        <div style={{ display: "flex", flexDirection: "column", marginBottom: 0 }}>
-                                            <div className={"profile-container"} style={{ float: "left", flex: "none", marginBottom: 0 }} width={'70vw'} height={50}>
-                                                <div style={{ display: "flex", flexDirection: "row", marginBottom: 0, justifyContent: "space-between" }} >
-                                                    <div style={{ display: "flex", flexDirection: "row", }}>
-                                                        <Image src={props.photo} width={50} height={50} style=
-                                                            {{
-                                                                margin: 10,
-                                                                float: "right",
-                                                            }} />
-                                                        <Row height={50}>
-                                                            <Col className="gutter-row">
-                                                                <div style={{ margin: 10, marginBottom: 0 }} width={'70vw'}>
-                                                                    <span style={{ fontWeight: 600, fontSize: 16, color: "black" }}>
-                                                                        {props.name}
-                                                                    </span>
-                                                                </div>
-                                                                <div style={{ marginLeft: 10 }}>
-                                                                    <span style={{ fontWeight: 300, fontSize: 12, color: "gray" }}>
-                                                                        {props.dataInic}
-                                                                    </span>
-                                                                </div>
-                                                            </Col>
-                                                        </Row>
+                                                    <div style={{ display: "flex", flexDirection: "row", marginTop: 8 }}>
+                                                        <Icon icon={eyeFilled} style={{ color: "lightGray", marginLeft: 15, marginTop: 10 }} height={18} />
+                                                        <span style={{ fontWeight: 300, fontSize: 22, color: "lightGray", marginLeft: 5 }}>
+                                                            {"2.4k"}
+                                                        </span>
                                                     </div>
-                                                    <Button type="danger" shape="round" style={{ marginTop: "10px" }} size={22}>
-                                                        <span style={{ fontWeight: 500, fontSize: 14, color: "white" }}> {"Корректировать"} </span>
-                                                    </Button>
                                                 </div>
+                                                <Button type="primary" shape="round" size={22} style={{ marginTop: 10 }}>
+                                                    <span style={{ fontWeight: 500, fontSize: 14, color: "white" }}> {"Одобрить"} </span>
+                                                </Button>
                                             </div>
 
-                                            <div style={{ margin: 10, marginBottom: 0, }}>
 
-                                                <span style={{ fontWeight: 500, fontSize: 16, color: "black" }}>
-                                                    {"Описание проблемы:"}
-                                                </span>
-                                             {/*   <span style={{ fontWeight: 400, fontSize: 14, color: "black", float: "left", textAlign: "justify" }}>
+                                            <div style={{ display: "flex", flexDirection: "column", marginBottom: 0 }}>
+                                                <div className={"profile-container"} style={{ float: "left", flex: "none", marginBottom: 0 }} width={'70vw'} height={50}>
+                                                    <div style={{ display: "flex", flexDirection: "row", marginBottom: 0, justifyContent: "space-between" }} >
+                                                        <div style={{ display: "flex", flexDirection: "row", }}>
+                                                            <Image src={props.photo} width={50} height={50} style=
+                                                                {{
+                                                                    margin: 10,
+                                                                    float: "right",
+                                                                }} />
+                                                            <Row height={50}>
+                                                                <Col className="gutter-row">
+                                                                    <div style={{ margin: 10, marginBottom: 0 }} width={'70vw'}>
+                                                                        <span style={{ fontWeight: 600, fontSize: 16, color: "black" }}>
+                                                                            {props.name}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div style={{ marginLeft: 10 }}>
+                                                                        <span style={{ fontWeight: 300, fontSize: 12, color: "gray" }}>
+                                                                            {props.dataInic}
+                                                                        </span>
+                                                                    </div>
+                                                                </Col>
+                                                            </Row>
+                                                        </div>
+                                                        <Button type="danger" shape="round" style={{ marginTop: "10px" }} size={22}>
+                                                            <span style={{ fontWeight: 500, fontSize: 14, color: "white" }}> {"Корректировать"} </span>
+                                                        </Button>
+                                                    </div>
+                                                </div>
+
+                                                <div style={{ margin: 10, marginBottom: 0, }}>
+
+                                                    <span style={{ fontWeight: 500, fontSize: 16, color: "black" }}>
+                                                        {"Описание проблемы:"}
+                                                    </span>
+                                                    {/*   <span style={{ fontWeight: 400, fontSize: 14, color: "black", float: "left", textAlign: "justify" }}>
                                                     {props.textProblem}
                                                 </span>
                                                 <span style={{ fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
@@ -171,160 +173,163 @@ function InitiativeOne(props) {
                                                 <span style={{ fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
                                                     {"Экономический эффект:"}
                                                         </span>*/}
-                                                <span style={{ fontWeight: 400, fontSize: 14, color: "black", float: "left", textAlign: "justify" }}>
-                                                    {props.textEconomic}
+                                                    <span style={{ fontWeight: 400, fontSize: 14, color: "black", float: "left", textAlign: "justify" }}>
+                                                        {props.textProblem}
+                                                    </span>
+                                                </div>
+
+                                                <span style={{ marginLeft: 10, fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
+                                                    {"Затраты на вредрение:"}
                                                 </span>
-                                            </div>
-
-                                            <span style={{ marginLeft: 10, fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
-                                                {"Затраты на вредрение:"}
-                                            </span>
-                                            <span style={{ marginLeft: 10, fontWeight: 400, fontSize: 16, color: "black", float: "left", textAlign: "justify" }}>
-                                                {props.textCoast + " руб."}
-                                            </span>
-                                            <span style={{ marginLeft: 10, fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
-                                                {"Сроки на вредрение:"}
-                                            </span>
-                                            <span style={{ marginLeft: 10, fontWeight: 400, fontSize: 16, color: "black", float: "left", textAlign: "justify" }}>
-                                                {props.textTime + " дней"}
-                                            </span>
-                                            <span style={{ marginLeft: 10, fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
-                                                {"Прикрепленные документы:"}
-                                            </span>
-
-                                            <div className={"iconslist"} style={{ justifyContent: "flex-start", marginBottom: 0, }}>
-
-                                                <Image src={"https://telegra.ph/file/4662c220cae1721f0ecf8.jpg"} width={100} height={100} style=
-                                                    {{
-                                                        margin: 10,
-                                                        marginTop: 15,
-                                                        marginBottom: 5,
-                                                        float: "left",
-                                                    }} />
-                                                <Image src={"https://telegra.ph/file/4662c220cae1721f0ecf8.jpg"} width={100} height={100} style=
-                                                    {{
-                                                        margin: 10,
-                                                        marginTop: 15,
-                                                        marginBottom: 5,
-                                                        float: "left",
-                                                    }} />
-                                                <Image src={"https://telegra.ph/file/4662c220cae1721f0ecf8.jpg"} width={100} height={100} style=
-                                                    {{
-                                                        margin: 10,
-                                                        marginTop: 15,
-                                                        marginBottom: 5,
-                                                        float: "left",
-                                                    }} />
-                                                <Image src={"https://telegra.ph/file/4662c220cae1721f0ecf8.jpg"} width={100} height={100} style=
-                                                    {{
-                                                        margin: 10,
-                                                        marginTop: 15,
-                                                        marginBottom: 5,
-                                                        float: "left",
-                                                    }} />
-                                            </div>
-
-                                            <a class="Link Link_theme_normal OrganicTitle-Link"
-                                                href="http://84.201.137.231:5001/get-file">
-                                                <span style={{ margin: 10, fontWeight: 500, fontSize: 18, color: "blue", fontStyle: "inherit", float: "left" }}>
-                                                    {"Скачать документ заявления"}
+                                                <span style={{ marginLeft: 10, fontWeight: 400, fontSize: 16, color: "black", float: "left", textAlign: "justify" }}>
+                                                    {props.textCoast + " руб."}
                                                 </span>
-                                            </a>
-                                        </div>
-                                    </Col>
+                                                <span style={{ marginLeft: 10, fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
+                                                    {"Сроки на вредрение:"}
+                                                </span>
+                                                <span style={{ marginLeft: 10, fontWeight: 400, fontSize: 16, color: "black", float: "left", textAlign: "justify" }}>
+                                                    {props.textTime + " дней"}
+                                                </span>
+                                                <span style={{ marginLeft: 10, fontWeight: 500, fontSize: 16, color: "black", float: "left" }}>
+                                                    {"Прикрепленные документы:"}
+                                                </span>
 
-                                </Row>
-                                <div style={{ display: 'flex', flexDirection: "row", justifySelf: "end", justifyContent: "end", justifyItems: "end", marginBottom: 0 }}>
-                                    <div style={{ width: '95%' }} />
-                                    <Button type="link" shape="round" icon={<Icon icon={caretDownFilled} style={{ color: "red", }} height={22} />} size={25}
-                                        onClick={() => { props.changeData({ rates: props.rates - 1 }) }}
-                                    ></Button>
-                                    <span style={{ fontWeight: 300, fontSize: 26, color: "green" }}> {props.rate} </span>
-                                    <Button type="link" shape="round" icon={<Icon icon={caretUpFilled} style={{ color: "green" }} height={22} />} size={25}
-                                        onClick={() => { props.changeData({ rates: props.rates + 1 }) }}
-                                    ></Button>
-                                </div>
+                                                <div className={"iconslist"} style={{ justifyContent: "flex-start", marginBottom: 0, }}>
 
-                            </Content>
+                                                    <Image src={"https://telegra.ph/file/4662c220cae1721f0ecf8.jpg"} width={100} height={100} style=
+                                                        {{
+                                                            margin: 10,
+                                                            marginTop: 15,
+                                                            marginBottom: 5,
+                                                            float: "left",
+                                                        }} />
+                                                    <Image src={"https://telegra.ph/file/4662c220cae1721f0ecf8.jpg"} width={100} height={100} style=
+                                                        {{
+                                                            margin: 10,
+                                                            marginTop: 15,
+                                                            marginBottom: 5,
+                                                            float: "left",
+                                                        }} />
+                                                    <Image src={"https://telegra.ph/file/4662c220cae1721f0ecf8.jpg"} width={100} height={100} style=
+                                                        {{
+                                                            margin: 10,
+                                                            marginTop: 15,
+                                                            marginBottom: 5,
+                                                            float: "left",
+                                                        }} />
+                                                    <Image src={"https://telegra.ph/file/4662c220cae1721f0ecf8.jpg"} width={100} height={100} style=
+                                                        {{
+                                                            margin: 10,
+                                                            marginTop: 15,
+                                                            marginBottom: 5,
+                                                            float: "left",
+                                                        }} />
+                                                </div>
 
-                        </Layout>
+                                                <a class="Link Link_theme_normal OrganicTitle-Link"
+                                                    href="http://84.201.137.231:5001/get-file">
+                                                    <span style={{ margin: 10, fontWeight: 500, fontSize: 18, color: "blue", fontStyle: "inherit", float: "left" }}>
+                                                        {"Скачать документ заявления"}
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </Col>
 
-                        <Layout style={{ marginTop: 20, marginLeft: '1vw', marginRight: '0vw', width: '15vw', color: "#00000000", background: "#00000000" }}>
-                            <Content className="site-layout-background" style={{
-                                padding: '0 15px',
-                                overflow: 'auto',
-                                borderRadius: 15
-                                , width: '20vw', color: "#00000000", background: "#00000000"
-                            }}>
-                                <Button type="primary" shape="round" style={{ marginLeft: "1vw" }} onClick={()=>{setVisible(true); postData();}}  
-                                    size={22}>    
-                                    <div style={{ display: "flex", flexDirection: "row" }}>
-                                        <span style={{ fontWeight: 500, fontSize: 14, color: "white" }}> {"Обсуждение в телеграмм"} </span>
-                                        <div style={{ width: '10px', }} />
-                                        <img width="22" height="22" src="https://www.flaticon.com/svg/static/icons/svg/739/739158.svg" alt="Telegram" title="Telegram" class="loaded" />
+                                    </Row>
+                                    <div style={{ display: 'flex', flexDirection: "row", justifySelf: "end", justifyContent: "end", justifyItems: "end", marginBottom: 0 }}>
+                                        <div style={{ width: '95%' }} />
+                                        <Button type="link" shape="round" icon={<Icon icon={caretDownFilled} style={{ color: "red", }} height={22} />} size={25}
+                                            onClick={() => { props.changeData({ rates: props.rates - 1 }) }}
+                                        ></Button>
+                                        <span style={{ fontWeight: 300, fontSize: 26, color: "green" }}> {props.rate} </span>
+                                        <Button type="link" shape="round" icon={<Icon icon={caretUpFilled} style={{ color: "green" }} height={22} />} size={25}
+                                            onClick={() => { props.changeData({ rates: props.rates + 1 }) }}
+                                        ></Button>
                                     </div>
-                                </Button>
-                                <ComentTelegOne name="Илья Ильичь" text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
-                                <ComentTelegOne name="Иван Михайлов" text="На сегодня происходят разные вещи..." />
-                                <ComentTelegOne name="Александр Цветич" text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
-                                <ComentTelegOne name="Илья Ильичь" text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
-                                <ComentTelegOne name="Иван Михайлов" text="На сегодня происходят разные вещи..." />
 
-                            </Content>
-                        </Layout>
-                    </Row>
-                    <Row>
-                        <Layout style={{ marginTop: 20, marginLeft: '5vw', marginRight: '2vw', width: '60vw', backgroundColor: "white" }}>
+                                </Content>
 
-                            <Content className="site-layout-background" style={{
-                                padding: '0 15px',
-                                overflow: 'auto',
-                                borderRadius: 15
-                                , width: '60vw',
-                                background: "#00000000"
-                            }}>
-                                <span style={{ fontWeight: 500, fontSize: 22, color: "black", textJustify: "auto", marginLeft: 10 }}> {"Комментарии: 3"} </span>
-                                <br></br>
+                            </Layout>
+
+                            <Layout style={{ marginTop: 20, marginLeft: '1vw', marginRight: '0vw', width: '15vw', color: "#00000000", background: "#00000000" }}>
+                                <Content className="site-layout-background" style={{
+                                    padding: '0 15px',
+                                    overflow: 'auto',
+                                    borderRadius: 15
+                                    , width: '20vw', color: "#00000000", background: "#00000000"
+                                }}>
+                                    <Button type="primary" shape="round" style={{ marginLeft: "1vw" }} onClick={() => { setVisible(true); postData(); }}
+                                        size={22}>
+                                        <div style={{ display: "flex", flexDirection: "row" }}>
+                                            <span style={{ fontWeight: 500, fontSize: 14, color: "white" }}> {"Обсуждение в телеграмм"} </span>
+                                            <div style={{ width: '10px', }} />
+                                            <img width="22" height="22" src="https://www.flaticon.com/svg/static/icons/svg/739/739158.svg" alt="Telegram" title="Telegram" class="loaded" />
+                                        </div>
+                                    </Button>
+                                    {props.coment == null ? <div /> :
+                                        <div>
+                                            <ComentTelegOne name={props.coment[0].user_name} text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
+                                            <ComentTelegOne name="Иван Михайлов" text="На сегодня происходят разные вещи..." />
+                                            <ComentTelegOne name="Александр Цветич" text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
+                                            <ComentTelegOne name="Илья Ильичь" text="На сегодня государство недополучает миллиарды налогов из-за того, что..." />
+                                            <ComentTelegOne name="Иван Михайлов" text="На сегодня происходят разные вещи..." />
+                                        </div>
+                                    }
+                                </Content>
+                            </Layout>
+                        </Row>
+                        <Row>
+                            <Layout style={{ marginTop: 20, marginLeft: '5vw', marginRight: '2vw', width: '60vw', backgroundColor: "white" }}>
+
+                                <Content className="site-layout-background" style={{
+                                    padding: '0 15px',
+                                    overflow: 'auto',
+                                    borderRadius: 15
+                                    , width: '60vw',
+                                    background: "#00000000"
+                                }}>
+                                    <span style={{ fontWeight: 500, fontSize: 22, color: "black", textJustify: "auto", marginLeft: 10 }}> {"Комментарии: 3"} </span>
+                                    <br></br>
 
 
 
-                                <MakeComentOne />
-                                <ComentOne
-                                    name={"Сергей Крутько"} data={"10.10.2020 18:32"} text={"Я считаю что некий отзыв об этом предложении не помешал бы"}
-                                    photo={"https://u-muzhchin.ru/wp-content/uploads/2020/06/9erSJwgZn_s.jpg"}
-                                />
-                                <ComentOne
-                                    name={"Сергей Крутько"} data={"10.10.2020 18:32"} text={"Я считаю что некий отзыв об этом прЯ считаю что некий отзыв об этом предложении не помешал быЯ считаю что некий отзыв об этом предложении не помешал быедложении не помешал бы"}
-                                    photo={"https://u-muzhchin.ru/wp-content/uploads/2020/06/9erSJwgZn_s.jpg"}
-                                />
-                                <ComentOne
-                                    name={"Сергей Крутько"} data={"10.10.2020 18:32"} text={"Я считаю что некий отзыв об этом предложении не помешал бы"}
-                                    photo={"https://u-muzhchin.ru/wp-content/uploads/2020/06/9erSJwgZn_s.jpg"}
-                                />
-                            </Content>
-                        </Layout>
+                                    <MakeComentOne />
+                                    <ComentOne
+                                        name={"Сергей Крутько"} data={"10.10.2020 18:32"} text={"Я считаю что некий отзыв об этом предложении не помешал бы"}
+                                        photo={"https://u-muzhchin.ru/wp-content/uploads/2020/06/9erSJwgZn_s.jpg"}
+                                    />
+                                    <ComentOne
+                                        name={"Сергей Крутько"} data={"10.10.2020 18:32"} text={"Я считаю что некий отзыв об этом прЯ считаю что некий отзыв об этом предложении не помешал быЯ считаю что некий отзыв об этом предложении не помешал быедложении не помешал бы"}
+                                        photo={"https://u-muzhchin.ru/wp-content/uploads/2020/06/9erSJwgZn_s.jpg"}
+                                    />
+                                    <ComentOne
+                                        name={"Сергей Крутько"} data={"10.10.2020 18:32"} text={"Я считаю что некий отзыв об этом предложении не помешал бы"}
+                                        photo={"https://u-muzhchin.ru/wp-content/uploads/2020/06/9erSJwgZn_s.jpg"}
+                                    />
+                                </Content>
+                            </Layout>
 
-                        <Layout style={{ marginTop: 20, marginLeft: '2vw', marginRight: '2vw', width: '15vw', color: "#00000000", background: "#00000000" }}>
-                            <Content className="site-layout-background" style={{
+                            <Layout style={{ marginTop: 20, marginLeft: '2vw', marginRight: '2vw', width: '15vw', color: "#00000000", background: "#00000000" }}>
+                                <Content className="site-layout-background" style={{
 
-                                padding: '0 15px',
-                                overflow: 'auto',
-                                borderRadius: 15
-                                , width: '15vw'
-                                , color: "#00000000", background: "#00000000"
-                            }}>
-                            </Content>
-                        </Layout>
-                    </Row >
+                                    padding: '0 15px',
+                                    overflow: 'auto',
+                                    borderRadius: 15
+                                    , width: '15vw'
+                                    , color: "#00000000", background: "#00000000"
+                                }}>
+                                </Content>
+                            </Layout>
+                        </Row >
 
-                </div>
+                    </div>
+                </Layout>
+
+
+
+
+                <Layout.Footer style={{ textAlign: 'center', backgroundColor: "white" }}>Россети</Layout.Footer>
             </Layout>
-
-
-
-
-            <Layout.Footer style={{ textAlign: 'center', backgroundColor: "white" }}>Россети</Layout.Footer>
-        </Layout>
         </div>
     )
 }
