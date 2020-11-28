@@ -38,9 +38,12 @@ export default (props) => {
         setData(newData);
     }
 
+
     const [initiatData, setInitiatData] = useState(fetchData())
 
     const [comm, setComm] = useState()
+
+    console.log(comm);
 
     const [count, setCount] = useState(0);
 

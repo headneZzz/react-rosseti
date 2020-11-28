@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {Layout, Row, Col, Image, Button, Input, Upload, Modal} from 'antd';
+import {Layout, Row, Col, Image, Button, Input, Upload, Modal, Table} from 'antd';
 import { useHistory } from "react-router";
 import {AppstoreOutlined, TableOutlined, DownOutlined, CheckOutlined, CloseOutlined, PlusOutlined, FileAddOutlined, UploadOutlined, AudioOutlined} from "@ant-design/icons";
 import Title from "../components/Title"
@@ -9,7 +9,23 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 const { TextArea } = Input;
 
+
+
 const fileList = [
+    {
+      uid: '-1',
+      name: 'План.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+        uid: '-1',
+        name: 'Проект.docx',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
   ];
 
 
@@ -27,8 +43,52 @@ const fileList = [
       marginBottom: 20, 
       borderRadius: 5
     }
+      
+      const columns = [
+        {
+          title: 'Статья затрат',
+          dataIndex: 'name',
+          key: 'name',
+          render: text => <Input  />
+        },
+        {
+          title: 'Сумма рублей (с НДС)',
+          dataIndex: 'summ',
+          key: 'summ',
+          render: text => <Input />
+        },
+      ];
 
-    
+      const columns2 = [
+        {
+          title: 'Этап',
+          dataIndex: 'name',
+          key: 'name',
+          render: text => <Input />
+        },
+        {
+          title: 'Срок, дней',
+          dataIndex: 'time',
+          key: 'time',
+          render: text => <Input />
+        },
+      ];
+
+      const columns3 = [
+        {
+          title: 'Автор',
+          dataIndex: 'name',
+          key: 'name',
+          render: text => <Input value={text} />
+        },
+        {
+          title: 'Вознаграждение (в %)',
+          dataIndex: 'fee',
+          key: 'fee',
+          render: text => <Input />
+        },
+      ];
+
 export default (props) => {
 
     const useHasChanged= (val) => {
@@ -45,7 +105,7 @@ export default (props) => {
     }
 
     var data = [{title: "Улучшение трубопровода", descr: "Улучшение трубопроводаУлучшение трубопроводаУлучшение трубопроводаУлучшение трубопровода"}, {title: "Улучшение прокладки проводов", descr: "Улучшение прокладки проводовУлучшение прокладки проводовУлучшение прокладки проводов"}]
-    var usersDb = [{name: "Сергей", lastName: "Воронежский", photo: "https://img.freepik.com/free-photo/portrait-of-white-man-isolated_53876-40306.jpg?size=626&ext=jpg" }, {name: "Владимир", lastName: "Кураткин", photo: "https://www.mosoblduma.ru/upload/site1/djdj.jpg" }]
+    var usersDb = [{name: "Илья", lastName: "Крутько", photo: "https://avatars.mds.yandex.net/get-zen_doc/163385/pub_5bb70bfc049c1c00aa163781_5bb70c53ad289e00ac6bf422/scale_1200" }, {name: "Даниил", lastName: "Кудряшев", photo: "https://avatars.mds.yandex.net/get-zen_doc/1894366/pub_5dd2e74d24f3107fe3149016_5dd2e897f2b9ae76f74dc5f4/scale_1200" }]
 
     var { transcript, interimTranscript, resetTranscript } = useSpeechRecognition()
 
@@ -55,23 +115,37 @@ export default (props) => {
     const [visible, setVisible] = useState(false)
     const [title, setTitle] = useState('')
     const [showSimilarities, setShowSimilarities] = useState(false)
-    const [authorsPhotos, setAuthorsPhotos] = useState(['https://www.modnapricha.info/wp-content/uploads/2019/12/top-strizhek-dlya-kvadratnoj-formy-lica3.jpg'])
+    const [authorsPhotos, setAuthorsPhotos] = useState(['https://www.modnapricha.info/wp-content/uploads/2019/12/top-strizhek-dlya-kvadratnoj-formy-lica3.jpg', 'https://www.mosoblduma.ru/upload/site1/djdj.jpg'])
     const [addUserModal, setAddUserModal] = useState(false)
     const [userSearchField, setUserSearchField] = useState('')
     const [descrData, setDescrData] = useState('')
     const [voiceOn, setVoiceOn] = useState(false)
-    const [elasticData, setElasticData] = useState([]);
     const voiceInput = useHasChanged(transcript)
 
-    const fetchElastic = async () => {
-        var response = await fetch('https://corser-any.herokuapp.com/84.201.137.231:9200/rosseti2/topics/_search?' + new URLSearchParams({
-            q: 'name:' + title,
-            pretty: false
-        }))
-        var responseJson = await response.json();
-        console.log(responseJson)
-        return responseJson;
-    }
+    const [dataSource1, setDataSource1] = useState([
+      ])
+
+      const [dataSource2, setDataSource2] = useState([
+      ])
+
+    useEffect(() => {
+        if (voiceInput ) {
+            setDescrData(transcript)
+        }
+    });
+
+    const [dataSource3, setDataSource3] = useState([
+        {
+          key: '1',
+          name: 'Дарья Сергеевна Золоторева',
+          fee: '10',
+        },
+        {
+          key: '2',
+          name: 'Владимир Владимирович Кураткин',
+          fee: '5',
+        },
+      ])
 
     useEffect(() => {
         if (voiceInput ) {
@@ -81,45 +155,32 @@ export default (props) => {
 
     var showSimilar = <div />;
 
-    if(showSimilarities && elasticData.length > 0)
+    if(showSimilarities && data.filter((item)=>item.title.toLocaleLowerCase().includes(title.toLocaleLowerCase())).length > 0)
     {
         showSimilar = ( 
                 <div  style={{marginBottom: 10}}>
-                    <SimilarInitiatives similar={elasticData} />
+                    <SimilarInitiatives similar={data.filter((item)=>item.title.toLocaleLowerCase().includes(title.toLocaleLowerCase()))} />
                 </div>
         )
     }
     const history = useHistory();
-
-    function getElasticArray(j)
-    {
-        if(j != null)
-            {
-                if(j.hits != null)
-                {
-                    if(j.hits.hits != null)
-                    {
-                        return j.hits.hits;
-                    }
-                }
-            }
-        return [];
+    const downloadFile = () => {
+        window.location.href = "http://84.201.137.231:5001/get-file"
+      }
+    const sendMailToClient = async () => {
+        await fetch('http://84.201.137.231:5005/sendemail_silent_to_client')
     }
 
-    useEffect(() => {
-        fetchElastic().then((data) => {
-            setElasticData(getElasticArray(data));
-        } 
+    const sendMailToAdmin = async () => {
+        await fetch('http://84.201.137.231:5005/sendemail_silent_to_admin')
+    }
 
-    );
-}, [title]);
-console.log(elasticData);
     return (
         <div>
         <Modal
             title="Подтвердите оригинальность идеи"
             visible={visible}
-            onOk={()=>{setVisible(false); history.push({pathname:  "/latest"}) }}
+            onOk={()=>{setVisible(false); sendMailToClient(); sendMailToAdmin(); history.push({pathname:  "/selfprofile"}); downloadFile();  }}
             onCancel={()=>{setVisible(false)}}
             okText={"Подтверждаю"}
             cancelText={"Еще нет"}
@@ -178,7 +239,7 @@ console.log(elasticData);
                                         Наименование
                                     </div>
                                     <div>
-                                        <Input placeholder="Заголовок" style={tableInputStyle} onChange={(data) => { setTitle(data.target.value); if(data.target.value == ''){setShowSimilarities(false)}else{setShowSimilarities(true)}}}/>
+                                        <Input value={"Улучшение трубопровода"} placeholder="Заголовок" style={tableInputStyle} onChange={(data) => { setTitle(data.target.value); if(data.target.value == ''){setShowSimilarities(false)}else{setShowSimilarities(true)}}}/>
                                     </div>
                                 </div>
                                 {
@@ -187,14 +248,78 @@ console.log(elasticData);
                                 
                                 <div>
                                     <div style={tableTextStyle}>
-                                        Решение
-                                    </div>
-                                    <div style={tableTextStyle}>
-                                        <Button danger={voiceOn == true ? true : false} onClick={async ()=>{ setVoiceOn(!voiceOn); voiceOn == false ? SpeechRecognition.startListening({continuous: true, language: 'ru'}) : SpeechRecognition.stopListening();}}><AudioOutlined /></Button>
+                                        Описание:
                                     </div>
                                     <div>
-                                        <TextArea suffix={<AudioOutlined />}  rows={10} placeholder="Опешите решение..." style={tableInputStyle} value={descrData} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                        <TextArea disabled={true} suffix={<AudioOutlined />}  rows={10} value={"Сокращение транспортных расходов"} style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
                                     </div>
+                                </div>
+
+                                <div>
+                                    <div style={tableTextStyle}>
+                                        Описание действительного положения с указанием существующих недостатков:
+                                    </div>
+                                    <div>
+                                        <TextArea  suffix={<AudioOutlined />}  rows={6}  style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div style={tableTextStyle}>
+                                        Описание предлагаемого решения:
+                                    </div>
+                                    <div>
+                                        <TextArea suffix={<AudioOutlined />}  rows={6} value="Сокращение транспортных расходов" style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div style={tableTextStyle}>
+                                        Ожидаемый положительный эффект от использования 
+                                    </div>
+                                    <div>
+                                        <TextArea suffix={<AudioOutlined />}  rows={6} style={tableInputStyle} onChange={(data)=>{setDescrData(data.target.value); interimTranscript  = data.target.value}}></TextArea>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                    onClick={()=>setDataSource1([...dataSource1, {
+                                        key: (dataSource1.length + 1).toString(),
+                                        name: "",
+                                        summ: '',
+                                      }])}
+                                    type="primary"
+                                    style={{
+                                        marginBottom: 10,
+                                        color: '#1890ff',
+                                        float: 'right'
+                                    }}
+                                    >
+                                        Добавить статью затрат...
+                                    </div>
+                                    <Table locale={{emptyText: 'Нет данных'}} pagination={false} dataSource={dataSource1} columns={columns} />
+                                </div>
+
+                                <div style={{paddingTop: 20, paddingBottom: 20}}>
+                                    <div
+                                    onClick={()=>setDataSource2([...dataSource2, {
+                                        key: (dataSource2.length + 1).toString(),
+                                        name: "",
+                                        time: '',
+                                      }])}
+                                    type="primary"
+                                    style={{
+                                        marginBottom: 10,
+                                        color: '#1890ff',
+                                        float: 'right'
+                                    }}
+                                    >
+                                        Добавить этап...
+                                    </div>
+                                    <Table locale={{emptyText: 'Нет данных'}} pagination={false} dataSource={dataSource2} columns={columns2} />
+                                </div>
+                                <div style={{paddingTop: 20, paddingBottom: 20}}>
+                                    <Table pagination={false} dataSource={dataSource3} columns={columns3} />
                                 </div>
                                 <div style={{paddingBottom : 15}}>
                                     <div style={tableTextStyle}>
@@ -206,7 +331,6 @@ console.log(elasticData);
                                             defaultFileList={[...fileList]}
                                             className="upload-list-inline"
                                         >
-                                            <Button><PlusOutlined />Добавить файл</Button>
                                         </Upload>
                                     </div>
                                 </div>
@@ -223,7 +347,7 @@ console.log(elasticData);
                                     </Col>
                                     <Col span={6}>
                                     <Button onClick={()=>{setVisible(true)}} type="primary" shape="round" icon={<PlusOutlined />} size={"middle"} color={"#008A60"} style={{float: 'right'}}>
-                                        Добавить инициативу
+                                        Сохранить инициативу
                                     </Button>
                                     </Col>
                                 </div>
@@ -241,10 +365,6 @@ function AuthorsPhotos(props)
 {
     return(
         <div style={{display: 'flex', flexDirection: 'row'}}>
-            <div style={{borderColor: 'C4C4C4', marginRight: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center'}} onClick={()=>{props.onAdd()}}>
-                <img src={add} width={65} height={65}/>
-            </div>
-            
             {
                 props.photos.map((item, index) => {
                     return <img src={item} width={65} height={65} style={{marginRight: 10, borderRadius: 50}} /> 
@@ -267,12 +387,12 @@ function SimilarInitiatives(props)
                     return (<div>
                         <div style={{color: '#005B9C', fontSize: 14, fontFamily: 'Roboto'}}>
                             {
-                                item._source.name
+                                item.title
                             }
                         </div>
                         <div style={{fontSize: 12, fontFamily: 'Roboto', borderBottom: 2, borderTop: 0, borderRight: 0, borderLeft: 0, borderColor: '#F0F0F0', paddingBottom: (index + 1) != props.similar.length ? 5 : 0 , marginBottom: (index + 1) != props.similar.length ? 5 : 0, borderStyle: (index + 1) != props.similar.length ? 'solid' : 'none'}}>
                             {
-                                item._source.description.slice(0, 50)
+                                item.descr
                             }
                         </div>
                     </div>);
