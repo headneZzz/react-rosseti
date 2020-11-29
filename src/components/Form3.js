@@ -35,7 +35,7 @@ const columns = [
               {category.map(tag => {
                 let color = tag.length > 5 ? 'geekblue' : 'green';
                 if (tag.toUpperCase() === 'ТЕХ. ПРОЦЕСС') {
-                  color = 'geekblue';
+                  color = 'blue';
                 }
                 if (tag.toUpperCase() === 'ДРУГОЕ') {
                   color = 'green';
@@ -72,6 +72,7 @@ const columns = [
                 if (tag === 'Отклоненно') {
                   color = 'red';
                 }
+                
                 return (
                   <Tag color={color} key={tag}>
                     {tag.toUpperCase()}
@@ -85,68 +86,68 @@ const columns = [
   
   const data = [
     {
+        key: '1',
+        name: 'Сокращение транспортных расходов предприятия.',
+        author: 'Дарья Сергеевна Золоторева',
+        raiting : "0",
+        messages : "0",
+        category: ['Тех. процесс'],
+        statuse: ["Формальное Описание"]
+    },
+    {
       key: '1',
       name: 'Тестовый топик',
       author: 'Дарья Сергеевна Золоторева',
       raiting : "11",
       messages : "3",
       category: ['Тех. процесс'],
-      statuse: ["Формальное Описание"]
-  },
-  {
-    key: '1',
-    name: 'Тестовый топик',
-    author: 'Дарья Сергеевна Золоторева',
-    raiting : "11",
-    messages : "3",
-    category: ['Тех. процесс'],
-    statuse: ["Модерация"]
-  },
-  {
-      key: '2',
-      name: 'Тестовая статья',
-      author: 'Дарья Сергеевна Золоторева',
-      raiting : "10",
-      messages : "5",
-      category: ['Сервисы'],
-      statuse: ["Отклоненно"]
+      statuse: ["Модерация"]
     },
     {
-        key: '3',
-        name: 'Распределение налогов',
-        author: 'Михаил Иванов',
-        raiting : "12",
-        messages : "3",
-        category: ['Другое'],
-        statuse: ["Модерация"]
+        key: '2',
+        name: 'Тестовая статья',
+        author: 'Дарья Сергеевна Золоторева',
+        raiting : "10",
+        messages : "5",
+        category: ['Сервисы'],
+        statuse: ["Отклоненно"]
       },
       {
-          key: '4',
-          name: 'Россети тестовая статья',
-          author: 'Дарья Сергеевна Золоторева',
-          raiting : "2",
-          messages : "0",
-          category: ['Безопасность'],
-          statuse: ["Модерация"]
+          key: '3',
+          name: 'Распределение налогов',
+          author: 'Михаил Иванов',
+          raiting : "12",
+          messages : "3",
+          category: ['Другое'],
+          statuse: ["Формальное Описание"]
         },
         {
-            key: '5',
-            name: 'Росссети',
+            key: '4',
+            name: 'Россети тестовая статья',
             author: 'Дарья Сергеевна Золоторева',
-            raiting : "0",
+            raiting : "2",
             messages : "0",
-            category: ['Digital'],
-            statuse: ["Реализация"]
+            category: ['Безопасность'],
+            statuse: ["Модерация"]
           },
           {
-              key: '6',
-              name: 'Расширение транспортной сети',
+              key: '5',
+              name: 'Росссети',
               author: 'Дарья Сергеевна Золоторева',
               raiting : "0",
               messages : "0",
-              category: ['Другое'],
+              category: ['Digital'],
               statuse: ["Реализация"]
-            }
+            },
+            {
+                key: '6',
+                name: 'Расширение транспортной сети',
+                author: 'Дарья Сергеевна Золоторева',
+                raiting : "0",
+                messages : "0",
+                category: ['Другое'],
+                statuse: ["Реализация"]
+              }
   ];
 
   const { Search } = Input;

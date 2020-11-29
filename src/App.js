@@ -12,7 +12,9 @@ import InitiativeOne from './pages/initiativeOne/index'
 import ProfilePage from './pages/Profile'
 import CreateDocument from './pages/CreateDocument'
 import EditDocument from './pages/EditDocument'
+import EditDocumentRasprNalog from './pages/EditDocumentRasprNalog'
 import Latest from './components/Form2'
+import Form3 from './components/Form3'
 import SelfProfile from './pages/Profile2'
 export default function App() {
     return (
@@ -27,7 +29,10 @@ export default function App() {
                     <PrivateRoute path="/createdocument" component={CreateDocument}/>
                     <PrivateRoute path="/editdocument" component={EditDocument}/>
                     <PrivateRoute path="/latest" component={Latest}/>
+                    <PrivateRoute path="/latestupdate" component={Form3}/>
+                    
                     <PrivateRoute path="/selfprofile" component={SelfProfile}/>
+                    <PrivateRoute path="/editdocumentrasprnalog" component={EditDocumentRasprNalog}/>
                 </MainPage>
                 
                 <Redirect from="/" to="/profile"/>

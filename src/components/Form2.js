@@ -35,7 +35,7 @@ const columns = [
               {category.map(tag => {
                 let color = tag.length > 5 ? 'geekblue' : 'green';
                 if (tag.toUpperCase() === 'ТЕХ. ПРОЦЕСС') {
-                  color = 'geekblue';
+                  color = 'blue';
                 }
                 if (tag.toUpperCase() === 'ДРУГОЕ') {
                   color = 'green';
@@ -51,7 +51,37 @@ const columns = [
               })}
             </>
           ),
-        }
+        },
+        {
+          title: 'Этап',
+          dataIndex: 'statuse',
+          key: 'statuse',
+          render: category => (
+            <>
+              {category.map(tag => {
+                let color = tag.length > 5 ? 'geekblue' : 'green';
+                if (tag === 'Формальное Описание') {
+                  color = 'geekblue';
+                }
+                if (tag === 'Модерация') {
+                  color = 'green';
+                }
+                if (tag === 'Формальное Описание') {
+                  color = 'yellow';
+                }
+                if (tag === 'Отклоненно') {
+                  color = 'red';
+                }
+                
+                return (
+                  <Tag color={color} key={tag}>
+                    {tag.toUpperCase()}
+                  </Tag>
+                );
+              })}
+            </>
+          ),
+        },
   ];
   
   const data = [
@@ -62,6 +92,7 @@ const columns = [
         raiting : "0",
         messages : "0",
         category: ['Тех. процесс'],
+        statuse: ["Формальное Описание"]
     },
     {
       key: '1',
@@ -70,6 +101,7 @@ const columns = [
       raiting : "11",
       messages : "3",
       category: ['Тех. процесс'],
+      statuse: ["Модерация"]
     },
     {
         key: '2',
@@ -78,14 +110,16 @@ const columns = [
         raiting : "10",
         messages : "5",
         category: ['Сервисы'],
+        statuse: ["Отклоненно"]
       },
       {
           key: '3',
           name: 'Распределение налогов',
-          author: 'Дарья Сергеевна Золоторева',
+          author: 'Михаил Иванов',
           raiting : "12",
           messages : "3",
           category: ['Другое'],
+          statuse: ["Модерация"]
         },
         {
             key: '4',
@@ -94,6 +128,7 @@ const columns = [
             raiting : "2",
             messages : "0",
             category: ['Безопасность'],
+            statuse: ["Модерация"]
           },
           {
               key: '5',
@@ -102,6 +137,7 @@ const columns = [
               raiting : "0",
               messages : "0",
               category: ['Digital'],
+              statuse: ["Реализация"]
             },
             {
                 key: '6',
@@ -110,6 +146,7 @@ const columns = [
                 raiting : "0",
                 messages : "0",
                 category: ['Другое'],
+                statuse: ["Реализация"]
               }
   ];
 

@@ -5,7 +5,7 @@ import eyeFilled from '@iconify-icons/ant-design/eye-filled';
 import caretDownFilled from '@iconify-icons/ant-design/caret-down-filled';
 import caretUpFilled from '@iconify-icons/ant-design/caret-up-filled';
 import './init.css'
-
+import {Link} from "react-router-dom";  
 
 export default (props) => {
     const [data, setData] = useState({ rates: 21 })
@@ -165,13 +165,15 @@ function InitiativeOne(props) {
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <Button type="primary" shape="round" size={22} style={{ marginTop: 10 }}>
-                                                    <span style={{
-                                                        fontWeight: 500,
-                                                        fontSize: 14,
-                                                        color: "white"
-                                                    }}> {"Одобрить"} </span>
-                                                </Button>
+                                                <Link to={"/latestupdate"}>
+                                                    <Button type="primary" shape="round" size={22} style={{ marginTop: 10 }}>
+                                                        <span style={{
+                                                            fontWeight: 500,
+                                                            fontSize: 14,
+                                                            color: "white"
+                                                        }}> {"Одобрить"} </span>
+                                                    </Button>
+                                                </Link>
                                             </div>
 
 
@@ -215,14 +217,16 @@ function InitiativeOne(props) {
                                                                 </Col>
                                                             </Row>
                                                         </div>
-                                                        <Button type="danger" shape="round" style={{ marginTop: "10px" }}
-                                                            size={22}>
-                                                            <span style={{
-                                                                fontWeight: 500,
-                                                                fontSize: 14,
-                                                                color: "white"
-                                                            }}> {"Корректировать"} </span>
-                                                        </Button>
+                                                        <Link to={"/editdocumentrasprnalog"}>
+                                                            <Button type="danger" shape="round" style={{ marginTop: "10px" }}
+                                                                size={22}>
+                                                                <span style={{
+                                                                    fontWeight: 500,
+                                                                    fontSize: 14,
+                                                                    color: "white"
+                                                                }}> {"Корректировать"} </span>
+                                                            </Button>
+                                                        </Link>
                                                     </div>
                                                 </div>
 
