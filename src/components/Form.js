@@ -9,7 +9,7 @@ const columns = [
       title: 'Название',
       dataIndex: 'name',
       key: 'name',
-      render: text => <Link to="/initiativeOne" onClick={console.log("idi nahui")}>{text}</Link>,
+      render: text => <Link to="/initiativeOne" onClick={()=>{}}>{text}</Link>,
     },
     {
         title: 'Автор',
